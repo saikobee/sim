@@ -112,6 +112,7 @@ public class GUI extends JFrame {
         }
         clear();
         report("Number of games: ", tournamentLength);
+        report("Number of wins: ", wins);
         report("Player type: ", player.type());
         final double ratio = ((double) wins)/((double) games);
         report("Win percentage: ", String.format("%.2f%%", 100 * ratio));
