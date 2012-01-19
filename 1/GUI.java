@@ -14,13 +14,15 @@ public class GUI extends JFrame {
     private JScrollPane scrollPane;
     private JTextArea   text;
 
-    private final Dimension size = new Dimension(500, 500);
+    private static final int tournamentLength = (int) 1e6;
+
+    private final Dimension size = new Dimension(300, 200);
 
     private final int padPx = 4;
 
     private final Color borderColor = new Color(128, 128, 128);
 
-    private final boolean chatty = true;
+    private final boolean chatty = false;
 
     private int prizeDoor;
 
@@ -46,6 +48,7 @@ public class GUI extends JFrame {
         ));
         toolbar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, borderColor));
         text.setEditable(false);
+        scrollPane.setPreferredSize(size);
 
         toolbar.add(stayButton);
         toolbar.add(swapButton);
@@ -71,7 +74,7 @@ public class GUI extends JFrame {
         chat("Hello everyone and welcome to Let's Make a Deal!");
         chat("I am your host Monty Hall, and this our groovy contestant!");
         chat("So, groovy contestant, which door would you like to pick?");
-        final int guess = player.guess();
+        int guess = player.guess();
         chat("So you chose door number ", guess, ".");
         chat("Alright, now let's make a deal.");
         final int badDoor = pickBadDoor(guess);
@@ -79,7 +82,12 @@ public class GUI extends JFrame {
         chat("Now that you know this, would you like to change your guess?");
         final boolean change = player.change();
         if (change) {
-            chat("So you want to gamble on a new door?");
+            chat("So you want to gamble on the other door?");
+            for (int door: Arrays.asList(0, 1, 2)) {
+                if (door != guess && door != badDoor) {
+                    guess = door;
+                }
+            }
         }
         else {
             chat("Staying safe with your current door?");
@@ -94,6 +102,19 @@ public class GUI extends JFrame {
             chat("ZONK! Better luck next time! Enjoy your gravy-flavored mouthwash!");
         }
         games++;
+    }
+
+    private void playTournamentWith(Player player) {
+        wins  = 0;
+        games = 0;
+        for (int n = 0; n < tournamentLength; n++) {
+            playGameWith(player);
+        }
+        clear();
+        report("Number of games: ", tournamentLength);
+        report("Player type: ", player.type());
+        final double ratio = ((double) wins)/((double) games);
+        report("Win percentage: ", String.format("%.2f%%", 100 * ratio));
     }
 
     private int pickBadDoor(int guess) {
@@ -114,13 +135,17 @@ public class GUI extends JFrame {
         prizeDoor = Util.random.nextInt(3);
     }
 
+    private void report(Object... words) {
+        for (Object word: words) {
+            text.append("" + word);
+        }
+
+        text.append("\n");
+    }
+
     private void chat(Object... words) {
         if (chatty) {
-            for (Object word: words) {
-                text.append("" + word);
-            }
-
-            text.append("\n");
+            report(words);
         }
     }
 
@@ -130,13 +155,13 @@ public class GUI extends JFrame {
 
     private class Stay implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            playGameWith(new StayPlayer());
+            playTournamentWith(new StayPlayer());
         }
     }
 
     private class Swap implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            playGameWith(new SwapPlayer());
+            playTournamentWith(new SwapPlayer());
         }
     }
 
