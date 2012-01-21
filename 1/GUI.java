@@ -12,17 +12,16 @@ public class GUI extends JFrame {
     private JButton     swapButton;
     private JButton     quitButton;
     private JScrollPane scrollPane;
+    private JCheckBox   chatterbox;
     private JTextArea   text;
 
-    private static final int tournamentLength = (int) 1e6;
-
-    private final Dimension size = new Dimension(300, 200);
+    private final Dimension size = new Dimension(450, 250);
 
     private final int padPx = 4;
 
     private final Color borderColor = new Color(128, 128, 128);
 
-    private final boolean chatty = false;
+    private final int delay = 250;
 
     private int prizeDoor;
 
@@ -34,10 +33,13 @@ public class GUI extends JFrame {
 
         pretty();
 
+        setTitle("Let's Make a Deal! by Brian Mock");
+
         toolbar    = new JPanel();
         stayButton = new JButton("Stay");
         swapButton = new JButton("Switch");
         quitButton = new JButton("Quit");
+        chatterbox = new JCheckBox("Chatty");
         text       = new JTextArea();
         scrollPane = new JScrollPane(text);
 
@@ -53,6 +55,7 @@ public class GUI extends JFrame {
         toolbar.add(stayButton);
         toolbar.add(swapButton);
         toolbar.add(quitButton);
+        toolbar.add(chatterbox);
 
         add(toolbar,    BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
@@ -66,6 +69,10 @@ public class GUI extends JFrame {
         pack();
 
         setVisible(true);
+    }
+
+    private int tournamentLength() {
+        return isChatty()? 10: (int) 1e6;
     }
 
     private void playGameWith(Player player) {
@@ -102,16 +109,27 @@ public class GUI extends JFrame {
             chat("ZONK! Better luck next time! Enjoy your gravy-flavored mouthwash!");
         }
         games++;
+        pause();
+    }
+
+    private void pause() {
+        if (isChatty()) {
+            try {
+                Thread.sleep(delay);
+            }
+            catch (InterruptedException e) {
+            }
+        }
     }
 
     private void playTournamentWith(Player player) {
         wins  = 0;
         games = 0;
-        for (int n = 0; n < tournamentLength; n++) {
+        for (int n = 0; n < tournamentLength(); n++) {
             playGameWith(player);
         }
         clear();
-        report("Number of games: ", tournamentLength);
+        report("Number of games: ", tournamentLength());
         report("Number of wins: ", wins);
         report("Player type: ", player.type());
         final double ratio = ((double) wins)/((double) games);
@@ -145,9 +163,13 @@ public class GUI extends JFrame {
     }
 
     private void chat(Object... words) {
-        if (chatty) {
+        if (isChatty()) {
             report(words);
         }
+    }
+
+    private boolean isChatty() {
+        return chatterbox.isSelected();
     }
 
     private void clear() {
@@ -156,13 +178,21 @@ public class GUI extends JFrame {
 
     private class Stay implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            playTournamentWith(new StayPlayer());
+            new Thread() {
+                public void run() {
+                    playTournamentWith(new StayPlayer());
+                }
+            }.start();
         }
     }
 
     private class Swap implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            playTournamentWith(new SwapPlayer());
+            new Thread() {
+                public void run() {
+                    playTournamentWith(new SwapPlayer());
+                }
+            }.start();
         }
     }
 
