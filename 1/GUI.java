@@ -21,7 +21,8 @@ public class GUI extends JFrame {
 
     private final Color borderColor = new Color(128, 128, 128);
 
-    private final int delay = 250;
+    private final int sentenceDelay = 500;
+    private final int letterDelay   =  25;
 
     private int prizeDoor;
 
@@ -72,7 +73,7 @@ public class GUI extends JFrame {
     }
 
     private int tournamentLength() {
-        return isChatty()? 10: (int) 1e6;
+        return isChatty()? 1: (int) 1e6;
     }
 
     private void playGameWith(Player player) {
@@ -82,10 +83,10 @@ public class GUI extends JFrame {
         chat("I am your host Monty Hall, and this our groovy contestant!");
         chat("So, groovy contestant, which door would you like to pick?");
         int guess = player.guess();
-        chat("So you chose door number ", guess, ".");
+        chat("So you chose door number ", guess + 1, ".");
         chat("Alright, now let's make a deal.");
         final int badDoor = pickBadDoor(guess);
-        chat("I know that door number ", badDoor, " doesn't have the prize.");
+        chat("I know that door number ", badDoor + 1, " doesn't have the prize.");
         chat("Now that you know this, would you like to change your guess?");
         final boolean change = player.change();
         if (change) {
@@ -100,7 +101,7 @@ public class GUI extends JFrame {
             chat("Staying safe with your current door?");
         }
         chat("Let's see if that was the right move!");
-        chat("It looks like the corret door was number ", prizeDoor, "!");
+        chat("It looks like the corret door was number ", prizeDoor + 1, "!");
         if (guess == prizeDoor) {
             chat("Congratulations! You won!");
             wins++;
@@ -109,10 +110,13 @@ public class GUI extends JFrame {
             chat("ZONK! Better luck next time! Enjoy your gravy-flavored mouthwash!");
         }
         games++;
-        pause();
     }
 
     private void pause() {
+        pause(sentenceDelay);
+    }
+
+    private void pause(int delay) {
         if (isChatty()) {
             try {
                 Thread.sleep(delay);
@@ -127,6 +131,9 @@ public class GUI extends JFrame {
         games = 0;
         for (int n = 0; n < tournamentLength(); n++) {
             playGameWith(player);
+        }
+        if (tournamentLength() <= 1) {
+            return;
         }
         clear();
         report("Number of games: ", tournamentLength());
@@ -164,7 +171,14 @@ public class GUI extends JFrame {
 
     private void chat(Object... words) {
         if (isChatty()) {
-            report(words);
+            for (Object word: words) {
+                for (char character: ("" + word).toCharArray()) {
+                    text.append("" + character);
+                    pause(letterDelay);
+                }
+            }
+            text.append("\n");
+            pause(sentenceDelay);
         }
     }
 
