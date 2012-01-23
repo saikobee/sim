@@ -91,9 +91,10 @@ public class GUI extends JFrame {
         final boolean change = player.change();
         if (change) {
             chat("So you want to gamble on the other door?");
-            for (int door: Arrays.asList(0, 1, 2)) {
+            for (int door = 0; door <3; door++) {
                 if (door != guess && door != badDoor) {
                     guess = door;
+                    break;
                 }
             }
         }
@@ -144,17 +145,13 @@ public class GUI extends JFrame {
     }
 
     private int pickBadDoor(int guess) {
-        int index;
-        List<Integer> doors = new ArrayList(Arrays.asList(0, 1, 2));
+        for (int door = 0; door <3; door++) {
+            if (door != guess && door != prizeDoor) {
+                return door;
+            }
+        }
 
-        index = doors.indexOf(guess);
-        if (index >= 0) doors.remove(index);
-
-        index = doors.indexOf(prizeDoor);
-        if (index >= 0) doors.remove(index);
-
-        int num = Util.random.nextInt(doors.size());
-        return doors.get(num);
+        throw new RuntimeException("You should not have come here!");
     }
 
     private void pickDoor() {
