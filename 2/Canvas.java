@@ -60,7 +60,14 @@ public class Canvas extends JPanel {
         g.setBackground(bgColor);
         g.clearRect(0, 0, w, h);
 
+        Debug.printf("\n");
+        Debug.printf("HHHH\n");
+        Debug.printf("====\n");
         drawLines(g, hPoints, hColor);
+
+        Debug.printf("\n");
+        Debug.printf("PPPP\n");
+        Debug.printf("====\n");
         drawLines(g, pPoints, pColor);
     }
 
@@ -82,7 +89,8 @@ public class Canvas extends JPanel {
             final int x2 = (int) (p2.x * (w / (double) size));
             final int y2 = (int) (p2.y * (h / (double) max ));
 
-            Debug.printf("y1=%d, y2=%d\n", p1.y, p2.y);
+            // Debug.printf("p1=(%d, %d)\n", p1.x, p1.y);
+            Debug.printf("p2=(%d, %d)\n", p2.x, p2.y);
             circle(g, x1, y1, r);
             circle(g, x2, y2, r);
             g.drawLine(x1, y1, x2, y2);

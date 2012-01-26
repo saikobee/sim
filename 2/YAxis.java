@@ -12,21 +12,23 @@ public class YAxis extends Axis {
         g.drawLine(w - 1, 0, w - 1, h);
 
         final int numTicks    = 6;
-        final int tickOffset  = 10;
-        final int tickSpacing = (h - tickOffset) / numTicks;
+        final int tickSpacing = h / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
 
-        int n = numTicks;
-        int y = tickSpacing;
-        while (y < (h - tickOffset) && n > 0) {
+        int n = 0;
+        int y = h - 1;
+        while (y > 0 && n < numTicks) {
             int num = n * (yMax / numTicks);
 
-            g.drawLine(w - tickSize, y, w, y);
+            g.drawLine(
+                w - tickSize, y,
+                w,            y
+            );
             g.drawString("" + num, textOffset, y);
 
-            n--;
-            y += tickSpacing;
+            n++;
+            y -= tickSpacing;
         }
     }
 }
