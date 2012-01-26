@@ -19,7 +19,7 @@ public class YAxis extends Axis {
         int n = 0;
         int y = h - 1;
         while (y > 0 && n < numTicks) {
-            int num = n * (yMax / numTicks);
+            int num = (int) (n * ((double) yMax / numTicks));
 
             g.drawLine(
                 w - tickSize, y,

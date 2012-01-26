@@ -23,7 +23,7 @@ public class XAxis extends Axis {
         int n = 0;
         int x = 0;
         while (x < w && n < numTicks) {
-            int num = n * (xMax / numTicks);
+            int num = (int) (n * ((double) xMax / numTicks));
 
             g.drawLine(
                 x + Q, tickSize,
