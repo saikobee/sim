@@ -82,6 +82,7 @@ public class Canvas extends JPanel {
             final int x2 = (int) (p2.x * (w / (double) size));
             final int y2 = (int) (p2.y * (h / (double) max ));
 
+            Debug.printf("y1=%d, y2=%d\n", p1.y, p2.y);
             circle(g, x1, y1, r);
             circle(g, x2, y2, r);
             g.drawLine(x1, y1, x2, y2);
