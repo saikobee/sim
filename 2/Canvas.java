@@ -176,14 +176,14 @@ public class Canvas extends JPanel {
 
         // g.drawLine(0, h - 1, w, h - 1);
 
-        final int numTicks    = Math.min(size, 12);
+        //final int numTicks    = Math.min(size, 12);
+        final int numTicks    = size;
         final int tickSpacing = w / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
 
-        int n = 0;
+        int n = 1;
         while (n <= numTicks) {
-            // int num = (int) (n * ((double) size / numTicks));
             int num = n * (size / numTicks);
             int x   = scaledX(num);
 

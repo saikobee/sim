@@ -14,9 +14,22 @@ public class Main {
             new DataPoint(24,  9),
             new DataPoint(32, 50),
             new DataPoint(40,  8),
+            new DataPoint(48, 20),
+            new DataPoint( 8, 20),
+            new DataPoint(16,  8),
+            new DataPoint(24,  9),
+            new DataPoint(32, 50),
+            new DataPoint(40,  8),
+            new DataPoint(48, 20),
+            new DataPoint( 8, 20),
+            new DataPoint(16,  8),
+            new DataPoint(24,  9),
+            new DataPoint(32, 50),
+            new DataPoint(40,  8),
             new DataPoint(48, 20)
         ));
 
-        new Grapher(dl);
+        // new Grapher(dl);
+        new Maker();
     }
 }

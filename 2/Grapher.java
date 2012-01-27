@@ -14,6 +14,7 @@ public class Grapher extends JFrame {
         add(canvas);
         pack();
         setVisible(true);
+        setTitle("Grapher by Brian Mock");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
