@@ -8,7 +8,7 @@ public class Grapher extends JFrame {
 
     public Grapher(DataList dl) {
         canvas = new Canvas(dl);
-        canvas.setPreferredSize(new Dimension(800, 480));
+        canvas.setPreferredSize(new Dimension(1000, 480));
         setBackground(bgColor);
         setForeground(fgColor);
         add(canvas);
