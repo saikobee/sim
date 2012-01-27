@@ -42,12 +42,12 @@ public class Maker extends JFrame {
         hLabel     = new JLabel("H", JLabel.RIGHT);
         pLabel     = new JLabel("P", JLabel.RIGHT);
 
-        alphaNum   = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
-        betaNum    = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
-        aNum       = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
-        bNum       = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
-        hNum       = new JSpinner(new SpinnerNumberModel(1, 0, 100, 1));
-        pNum       = new JSpinner(new SpinnerNumberModel(1, 0, 100, 1));
+        alphaNum   = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
+        betaNum    = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
+        aNum       = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
+        bNum       = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
+        hNum       = new JSpinner(new SpinnerNumberModel(1000, 0, 10000, 1));
+        pNum       = new JSpinner(new SpinnerNumberModel( 100, 0, 10000, 1));
 
         grid.add(alphaLabel);
         grid.add(alphaNum);
