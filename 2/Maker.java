@@ -9,18 +9,18 @@ public class Maker extends JFrame {
      * dH = aH - αHP
      * dP = βHP - bP
      */
-    private JLabel   alphaLabel;
-    private JSpinner alphaNum;
-    private JLabel   betaLabel;
-    private JSpinner betaNum;
-    private JLabel   aLabel;
-    private JSpinner aNum;
-    private JLabel   bLabel;
-    private JSpinner bNum;
-    private JLabel   hLabel;
-    private JSpinner hNum;
-    private JLabel   pLabel;
-    private JSpinner pNum;
+    private JTextField alphaNum;
+    private JTextField betaNum;
+    private JTextField aNum;
+    private JTextField bNum;
+    private JTextField hNum;
+    private JTextField pNum;
+    private JLabel     alphaLabel;
+    private JLabel     betaLabel;
+    private JLabel     aLabel;
+    private JLabel     bLabel;
+    private JLabel     hLabel;
+    private JLabel     pLabel;
 
     private JButton submit;
 
@@ -32,7 +32,7 @@ public class Maker extends JFrame {
         setTitle("Graph Maker by Brian Mock");
 
         grid.setBorder(BorderFactory.createEmptyBorder(pad, pad, pad, pad));
-        grid.setLayout(new GridLayout(0, 4));
+        grid.setLayout(new GridLayout(0, 2));
         grid.setBackground(getBackground());
 
         alphaLabel = new JLabel("α", JLabel.RIGHT);
@@ -42,12 +42,12 @@ public class Maker extends JFrame {
         hLabel     = new JLabel("H", JLabel.RIGHT);
         pLabel     = new JLabel("P", JLabel.RIGHT);
 
-        alphaNum   = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
-        betaNum    = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
-        aNum       = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
-        bNum       = new JSpinner(new SpinnerNumberModel(0.1, 0.0, 10.0, 0.1));
-        hNum       = new JSpinner(new SpinnerNumberModel(1000, 0, 10000, 1));
-        pNum       = new JSpinner(new SpinnerNumberModel( 100, 0, 10000, 1));
+        alphaNum   = new JTextField("0.0000000001");
+        betaNum    = new JTextField("0.000000000009");
+        aNum       = new JTextField("0.9");
+        bNum       = new JTextField("0.001");
+        hNum       = new JTextField("1000");
+        pNum       = new JTextField("100");
 
         grid.add(alphaLabel);
         grid.add(alphaNum);
@@ -86,12 +86,12 @@ public class Maker extends JFrame {
     private class DoIt implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             new GrapherMaker(
-                (Double) alphaNum.getValue(),
-                (Double) betaNum.getValue(),
-                (Double) aNum.getValue(),
-                (Double) bNum.getValue(),
-                (Integer) hNum.getValue(),
-                (Integer) pNum.getValue()
+                new Double(alphaNum.getText()),
+                new Double(betaNum.getText()),
+                new Double(aNum.getText()),
+                new Double(bNum.getText()),
+                new Integer(hNum.getText()),
+                new Integer(pNum.getText())
             );
         }
     }

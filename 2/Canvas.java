@@ -9,7 +9,8 @@ public class Canvas extends JPanel {
     private List<Point> hPoints;
     private List<Point> pPoints;
 
-    private int max;
+    private int hMax;
+    private int pMax;
     private int size;
 
     private Font font = new Font(Font.MONOSPACED, Font.BOLD, 16);
@@ -38,12 +39,13 @@ public class Canvas extends JPanel {
 
     private void calcPoints() {
         size = dl.size() - 1;
-        max  = 0;
+        pMax = 0;
+        hMax = 0;
 
         int x = 0;
         for (DataPoint dp: dl) {
-            if (dp.h > max) max = dp.h;
-            if (dp.p > max) max = dp.p;
+            if (dp.h > hMax) hMax = dp.h;
+            if (dp.p > pMax) pMax = dp.p;
 
             hPoints.add(new Point(x, dp.h));
             pPoints.add(new Point(x, dp.p));
@@ -68,13 +70,13 @@ public class Canvas extends JPanel {
         Debug.printf("\n");
         Debug.printf("HHHH\n");
         Debug.printf("====\n");
-        drawLines(g, hPoints, hColor);
+        drawLines(g, hMax, hPoints, hColor);
         // drawPoints(g, hPoints, hColor);
 
         Debug.printf("\n");
         Debug.printf("PPPP\n");
         Debug.printf("====\n");
-        drawLines(g, pPoints, pColor);
+        drawLines(g, pMax, pPoints, pColor);
         // drawPoints(g, pPoints, pColor);
 
         g.setColor(fgColor);
@@ -83,7 +85,7 @@ public class Canvas extends JPanel {
         drawTicksX(g);
     }
 
-    private void drawLines(Graphics2D g, List<Point> points, Color color) {
+    private void drawLines(Graphics2D g, int max, List<Point> points, Color color) {
         final int w = getWidth();
         final int h = getHeight();
 
@@ -98,10 +100,10 @@ public class Canvas extends JPanel {
         Point p1 = it.hasNext()? it.next(): null;
         Point p2 = it.hasNext()? it.next(): null;
         while (p1 != null && p2 != null) {
-            final int x1 = scaledX(p1.x);
-            final int y1 = scaledY(p1.y);
-            final int x2 = scaledX(p2.x);
-            final int y2 = scaledY(p2.y);
+            final int x1 = scaledX(p1.x, size);
+            final int y1 = scaledY(p1.y, max);
+            final int x2 = scaledX(p2.x, size);
+            final int y2 = scaledY(p2.y, max);
 
             // Debug.printf("p1=(%d, %d)\n", p1.x, p1.y);
             Debug.printf("p2=(%d, %d)\n", p2.x, p2.y);
@@ -118,27 +120,8 @@ public class Canvas extends JPanel {
         }
     }
 
-    private void drawPoints(Graphics2D g, List<Point> points, Color color) {
-        final int w = getWidth();
-        final int h = getHeight();
-
-        final int r = 6;
-
-        g.setColor(color);
-
-        for (Point p: points) {
-            final int x = scaledX(p.x);
-            final int y = scaledY(p.y);
-
-            Debug.printf("(real) p=(%d, %d)\n", p.x, p.y);
-            Debug.printf("(pixl) p=(%d, %d)\n",   x,   y);
-
-            circle(g, x, y, r);
-        }
-    }
-
-    private int scaledX(int x) { return               (int) (x * (getWidth()  / (double) size)); }
-    private int scaledY(int y) { return getHeight() - (int) (y * (getHeight() / (double) max )); }
+    private int scaledX(int x, int max) { return               (int) (x * (getWidth()  / (double) max)); }
+    private int scaledY(int y, int max) { return getHeight() - (int) (y * (getHeight() / (double) max)); }
 
     private void drawTicksY(Graphics2D g) {
         final int w = getWidth();
@@ -146,15 +129,15 @@ public class Canvas extends JPanel {
 
         // g.drawLine(0, 0, 0, h);
 
-        final int numTicks    = Math.min(max, 6);
-        final int tickSpacing = max / numTicks;
+        final int numTicks    = Math.min(pMax, 6);
+        final int tickSpacing = pMax / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
 
         int n = numTicks;
         while (n >= 1) {
             int num = n * tickSpacing;
-            int y   = scaledY(num);
+            int y   = scaledY(num, pMax);
 
             g.drawLine(
                 tickSize, y,
@@ -176,8 +159,7 @@ public class Canvas extends JPanel {
 
         // g.drawLine(0, h - 1, w, h - 1);
 
-        //final int numTicks    = Math.min(size, 12);
-        final int numTicks    = size;
+        final int numTicks    = Math.min(size, 12);
         final int tickSpacing = w / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
@@ -185,7 +167,7 @@ public class Canvas extends JPanel {
         int n = 1;
         while (n <= numTicks) {
             int num = n * (size / numTicks);
-            int x   = scaledX(num);
+            int x   = scaledX(num, size);
 
             g.drawLine(
                 x, h - tickSize,
