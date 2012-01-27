@@ -7,12 +7,12 @@ public class GrapherMaker {
     private double beta;
     private double a;
     private double b;
-    private double h;
-    private double p;
+    private int h;
+    private int p;
 
     private DataList dl;
 
-    private static final int steps = 50;
+    private static final int steps = 1000;
 
     public GrapherMaker(double alpha_, double beta_, double a_, double b_, int h_, int p_) {
         alpha = alpha_;
@@ -28,12 +28,12 @@ public class GrapherMaker {
             final double dh =    a*h   - alpha*h*p;
             final double dp = beta*h*p -       b*p;
 
-            Debug.printf("dh=%9.7f, dp=%9.7f\n", dh, dp);
+            //Debug.printf("dh=%9.7f, dp=%9.7f\n", dh, dp);
 
-            h = Math.max(h + dh, 0.00);
-            p = Math.max(p + dp, 0.00);
-            if (h == 0) break;
-            if (p == 0) break;
+            h += dh;
+            p += dp;
+            if (h <= 0) break;
+            if (p <= 0) break;
             dl.add(new DataPoint((int) h, (int) p));
         }
 

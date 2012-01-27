@@ -105,7 +105,7 @@ public class Canvas extends JPanel {
             final int x2 = scaledX(p2.x, size);
             final int y2 = scaledY(p2.y, max);
 
-            // Debug.printf("p1=(%d, %d)\n", p1.x, p1.y);
+            Debug.printf("p1=(%d, %d)\n", p1.x, p1.y);
             Debug.printf("p2=(%d, %d)\n", p2.x, p2.y);
             circle(g, x1, y1, r);
             circle(g, x2, y2, r);
