@@ -15,13 +15,15 @@ public class Canvas extends JPanel {
     private final Color hColor  = new Color(  0, 128, 255);
     private final Color pColor  = new Color(255, 128,   0);
     private final Color bgColor = new Color( 17,  17,  17);
+    private final Color fgColor = new Color(224, 224, 224);
 
     private final int STROKE_WIDTH = 3;
-    private final Stroke stroke = new BasicStroke(
+    private final Stroke strokeBig = new BasicStroke(
         STROKE_WIDTH,
         BasicStroke.CAP_ROUND,
         BasicStroke.JOIN_ROUND
     );
+    private final Stroke strokeSmall = new BasicStroke(1);
 
     public Canvas(DataList dl) {
         this.dl = dl;
@@ -56,7 +58,7 @@ public class Canvas extends JPanel {
 
         Graphics2D g = (Graphics2D) gUnit;
 
-        g.setStroke(stroke);
+        g.setStroke(strokeBig);
         g.setBackground(bgColor);
         g.clearRect(0, 0, w, h);
 
@@ -69,6 +71,9 @@ public class Canvas extends JPanel {
         Debug.printf("PPPP\n");
         Debug.printf("====\n");
         drawLines(g, pPoints, pColor);
+
+        drawTicksY(g);
+        drawTicksX(g);
     }
 
     private void drawLines(Graphics2D g, List<Point> points, Color color) {
@@ -97,6 +102,66 @@ public class Canvas extends JPanel {
 
             p1 = p2;
             p2 = it.hasNext()? it.next(): null;
+        }
+    }
+
+    private void drawTicksY(Graphics2D g) {
+        final int w = getWidth();
+        final int h = getHeight();
+
+        g.setColor(fgColor);
+        g.setStroke(strokeSmall);
+        g.drawLine(0, 0, 0, h);
+
+        final int numTicks    = 6;
+        final int tickSpacing = h / numTicks;
+        final int tickSize    = 4;
+        final int textOffset  = 4;
+
+        int n = 0;
+        int y = h - 1;
+        while (y > 0 && n < numTicks) {
+            int num = (int) (n * ((double) max / numTicks));
+
+            g.drawLine(
+                tickSize, y,
+                0,        y
+            );
+            g.drawString("" + num, textOffset, y);
+
+            n++;
+            y -= tickSpacing;
+        }
+    }
+
+    protected void drawTicksX(Graphics2D g) {
+        final int w = getWidth();
+        final int h = getHeight();
+
+        g.drawLine(0, h - 1, w, h - 1);
+
+        final int numTicks    = 12;
+        final int tickSpacing = w / numTicks;
+        final int tickSize    = 4;
+        final int textOffset  = 4;
+
+        int n = 0;
+        int x = 0;
+        while (x < w && n < numTicks) {
+            int num = (int) (n * ((double) size / numTicks));
+
+            g.drawLine(
+                x, h - tickSize,
+                x, h
+            );
+            g.drawString(
+                "" + num,
+                (x - 2*textOffset),
+                (h - 2*textOffset)
+            );
+
+            n++;
+            x += tickSpacing;
         }
     }
 

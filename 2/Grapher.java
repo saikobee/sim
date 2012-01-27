@@ -11,10 +11,7 @@ public class Grapher extends JFrame {
         canvas.setPreferredSize(new Dimension(800, 480));
         setBackground(bgColor);
         setForeground(fgColor);
-        setLayout(new BorderLayout());
-        add(canvas, BorderLayout.CENTER);
-        add(new YAxis(dl),   BorderLayout.WEST);
-        add(new XAxis(dl), BorderLayout.SOUTH);
+        add(canvas);
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
