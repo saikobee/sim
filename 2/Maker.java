@@ -1,5 +1,6 @@
 import javax.swing.UIManager.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class Maker extends JFrame {
@@ -28,6 +29,7 @@ public class Maker extends JFrame {
     public Maker() {
         beautify();
         JPanel grid = new JPanel();
+        setTitle("Graph Maker by Brian Mock");
 
         grid.setBorder(BorderFactory.createEmptyBorder(pad, pad, pad, pad));
         grid.setLayout(new GridLayout(0, 4));
@@ -40,12 +42,12 @@ public class Maker extends JFrame {
         hLabel     = new JLabel("H", JLabel.RIGHT);
         pLabel     = new JLabel("P", JLabel.RIGHT);
 
-        alphaNum   = new JSpinner(new SpinnerNumberModel(1.0, -10.0, 10.0, 0.1));
-        betaNum    = new JSpinner(new SpinnerNumberModel(1.0, -10.0, 10.0, 0.1));
-        aNum       = new JSpinner(new SpinnerNumberModel(1.0, -10.0, 10.0, 0.1));
-        bNum       = new JSpinner(new SpinnerNumberModel(1.0, -10.0, 10.0, 0.1));
-        hNum       = new JSpinner(new SpinnerNumberModel(1.0, -10.0, 10.0, 0.1));
-        pNum       = new JSpinner(new SpinnerNumberModel(1.0, -10.0, 10.0, 0.1));
+        alphaNum   = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
+        betaNum    = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
+        aNum       = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
+        bNum       = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1));
+        hNum       = new JSpinner(new SpinnerNumberModel(1, 0, 100, 1));
+        pNum       = new JSpinner(new SpinnerNumberModel(1, 0, 100, 1));
 
         grid.add(alphaLabel);
         grid.add(alphaNum);
@@ -68,6 +70,7 @@ public class Maker extends JFrame {
         setLayout(new BorderLayout());
 
         submit = new JButton("Graph");
+        submit.addActionListener(new DoIt());
         JPanel toolbar = new JPanel();
         toolbar.add(submit);
 
@@ -80,6 +83,19 @@ public class Maker extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    private class DoIt implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            new GrapherMaker(
+                (Double) alphaNum.getValue(),
+                (Double) betaNum.getValue(),
+                (Double) aNum.getValue(),
+                (Double) bNum.getValue(),
+                (Integer) hNum.getValue(),
+                (Integer) pNum.getValue()
+            );
+        }
+    }
+
     private void beautify() {
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -88,7 +104,8 @@ public class Maker extends JFrame {
                     break;
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
     }
 }
