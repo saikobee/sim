@@ -137,8 +137,8 @@ public class Canvas extends JPanel {
         }
     }
 
-    private int scaledX(int x) { return (int) (x * (getWidth()  / (double) size)); }
-    private int scaledY(int y) { return (int) (y * (getHeight() / (double) max )); }
+    private int scaledX(int x) { return               (int) (x * (getWidth()  / (double) size)); }
+    private int scaledY(int y) { return getHeight() - (int) (y * (getHeight() / (double) max )); }
 
     private void drawTicksY(Graphics2D g) {
         final int w = getWidth();
@@ -146,7 +146,7 @@ public class Canvas extends JPanel {
 
         // g.drawLine(0, 0, 0, h);
 
-        final int numTicks    = 6;
+        final int numTicks    = Math.min(max, 6);
         final int tickSpacing = max / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
@@ -176,12 +176,12 @@ public class Canvas extends JPanel {
 
         // g.drawLine(0, h - 1, w, h - 1);
 
-        final int numTicks    = 12;
+        final int numTicks    = Math.min(size, 12);
         final int tickSpacing = w / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
 
-        int n = 1;
+        int n = 0;
         int x = n * tickSpacing;
         while (x < w && n <= numTicks) {
             // int num = (int) (n * ((double) size / numTicks));
