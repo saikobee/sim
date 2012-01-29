@@ -61,7 +61,7 @@ public class PhaseCanvas extends JPanel {
         );
 
         //g.setFont(font);
-        //g.setStroke(strokeBig);
+        g.setStroke(strokeBig);
         g.setBackground(bgColor);
         g.setColor(fgColor);
         g.clearRect(0, 0, w, h);
@@ -75,8 +75,16 @@ public class PhaseCanvas extends JPanel {
     }
 
     private void drawIt(Graphics2D g) {
+        drawLines(g);
+        drawDots(g);
+    }
+
+    private void drawLines(Graphics2D g) {
         final int w = getWidth();
         final int h = getHeight();
+
+        int oldX = -1;
+        int oldY = -1;
 
         float hue = 0.0f;
         for (DataPoint dp: dl) {
@@ -85,10 +93,40 @@ public class PhaseCanvas extends JPanel {
 
             g.setColor(Color.getHSBColor(hue, 0.50f, 0.50f));
 
+            if (oldX >= 0 && oldY >= 0) {
+                g.drawLine(oldX, oldY, x, y);
+            }
+
+            //circle(g, x, y);
+
+            hue += 0.1f;
+            hue %= 1.0f;
+
+            oldX = x;
+            oldY = y;
+        }
+    }
+
+    private void drawDots(Graphics2D g) {
+        final int w = getWidth();
+        final int h = getHeight();
+
+        int oldX = -1;
+        int oldY = -1;
+
+        float hue = 0.0f;
+        for (DataPoint dp: dl) {
+            final int x =     scaledX(dp.h);
+            final int y = h - scaledY(dp.p);
+
+            g.setColor(Color.getHSBColor(hue, 0.50f, 0.50f));
             circle(g, x, y);
 
             hue += 0.1f;
             hue %= 1.0f;
+
+            oldX = x;
+            oldY = y;
         }
     }
 
@@ -97,10 +135,6 @@ public class PhaseCanvas extends JPanel {
 
     private void circle(Graphics g, int x, int y) {
         final int r = 6;
-        final Color c = g.getColor();
         g.fillOval(x - r, y - r, 2*r, 2*r);
-        g.setColor(Color.BLACK);
-        g.drawOval(x - r, y - r, 2*r, 2*r);
-        g.setColor(c);
     }
 }
