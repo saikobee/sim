@@ -96,7 +96,7 @@ public class Maker extends JFrame {
                 new Double(bNum.getText()),
                 new Integer(hNum.getText()),
                 new Integer(pNum.getText())
-            );
+            ).grapher();
         }
     }
 
@@ -109,7 +109,7 @@ public class Maker extends JFrame {
                 new Double(bNum.getText()),
                 new Integer(hNum.getText()),
                 new Integer(pNum.getText())
-            );
+            ).phaser();
         }
     }
 

@@ -36,7 +36,8 @@ public class GrapherMaker {
             if (p <= 0) break;
             dl.add(new DataPoint((int) h, (int) p));
         }
-
-        new Grapher(dl);
     }
+
+    public void grapher() { new Grapher(dl); }
+    public void phaser()  { new PhaseGrapher(dl); }
 }
