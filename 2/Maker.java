@@ -23,6 +23,7 @@ public class Maker extends JFrame {
     private JLabel     pLabel;
 
     private JButton submit;
+    private JButton phase;
 
     private static final int pad = 10;
 
@@ -71,8 +72,11 @@ public class Maker extends JFrame {
 
         submit = new JButton("Graph");
         submit.addActionListener(new DoIt());
+        phase  = new JButton("Phase");
+        phase .addActionListener(new PhaseIt());
         JPanel toolbar = new JPanel();
         toolbar.add(submit);
+        toolbar.add(phase);
 
         add(grid,    BorderLayout.CENTER);
         add(toolbar, BorderLayout.SOUTH);
@@ -84,6 +88,19 @@ public class Maker extends JFrame {
     }
 
     private class DoIt implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            new GrapherMaker(
+                new Double(alphaNum.getText()),
+                new Double(betaNum.getText()),
+                new Double(aNum.getText()),
+                new Double(bNum.getText()),
+                new Integer(hNum.getText()),
+                new Integer(pNum.getText())
+            );
+        }
+    }
+
+    private class PhaseIt implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             new GrapherMaker(
                 new Double(alphaNum.getText()),
