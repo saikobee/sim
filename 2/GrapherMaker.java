@@ -12,7 +12,7 @@ public class GrapherMaker {
 
     private DataList dl;
 
-    private static final int steps = 1000;
+    private static final int steps = (int) 1e4;
 
     public GrapherMaker(double alpha_, double beta_, double a_, double b_, int h_, int p_) {
         alpha = alpha_;

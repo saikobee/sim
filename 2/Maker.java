@@ -87,8 +87,12 @@ public class Maker extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private class DoIt implements ActionListener {
+    private class DoIt extends Thread implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            new DoIt().start();
+        }
+
+        public void run() {
             new GrapherMaker(
                 new Double(alphaNum.getText()),
                 new Double(betaNum.getText()),
@@ -100,8 +104,12 @@ public class Maker extends JFrame {
         }
     }
 
-    private class PhaseIt implements ActionListener {
+    private class PhaseIt extends Thread implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            new PhaseIt().start();
+        }
+
+        public void run() {
             new GrapherMaker(
                 new Double(alphaNum.getText()),
                 new Double(betaNum.getText()),
