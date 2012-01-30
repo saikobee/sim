@@ -15,8 +15,8 @@ public class Canvas extends JPanel {
 
     private Font font = new Font(Font.MONOSPACED, Font.BOLD, 16);
 
-    private final Color hColor  = new Color(  0, 128, 255);
-    private final Color pColor  = new Color(255, 128,   0);
+    private final Color hColor  = new Color( 64, 192, 255);
+    private final Color pColor  = new Color(224,  64,  64);
     private final Color bgColor = new Color( 17,  17,  17);
     private final Color fgColor = new Color(255, 255, 255);
 
@@ -91,7 +91,8 @@ public class Canvas extends JPanel {
 
         g.setColor(fgColor);
         g.setStroke(strokeSmall);
-        drawTicksY(g);
+        drawTicksY1(g);
+        drawTicksY2(g);
         drawTicksX(g);
     }
 
@@ -133,7 +134,7 @@ public class Canvas extends JPanel {
     private int scaledX(int x, int max) { return               (int) (x * (getWidth()  / (double) max)); }
     private int scaledY(int y, int max) { return getHeight() - (int) (y * (getHeight() / (double) max)); }
 
-    private void drawTicksY(Graphics2D g) {
+    private void drawTicksY1(Graphics2D g) {
         final int w = getWidth();
         final int h = getHeight();
 
@@ -143,6 +144,8 @@ public class Canvas extends JPanel {
         final int tickSpacing = pMax / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
+
+        g.setColor(pColor);
 
         int n = numTicks;
         while (n >= 1) {
@@ -155,9 +158,41 @@ public class Canvas extends JPanel {
             );
             final String text = String.format("%02d", num);
             final int    txtX = 2*textOffset;
-            final int    txtY = y + textOffset;
+            final int    txtY = y + textOffset + 8;
             g.setColor(bgColor); g.drawString(text, txtX,     txtY);
-            g.setColor(fgColor); g.drawString(text, txtX + 1, txtY - 1);
+            g.setColor( pColor); g.drawString(text, txtX + 1, txtY - 1);
+
+            n--;
+        }
+    }
+
+    private void drawTicksY2(Graphics2D g) {
+        final int w = getWidth();
+        final int h = getHeight();
+
+        // g.drawLine(0, 0, 0, h);
+
+        final int numTicks    = Math.min(hMax, 6);
+        final int tickSpacing = hMax / numTicks;
+        final int tickSize    = 4;
+        final int textOffset  = 4;
+
+        g.setColor(hColor);
+
+        int n = numTicks;
+        while (n >= 1) {
+            int num = n * tickSpacing;
+            int y   = scaledY(num, hMax);
+
+            g.drawLine(
+                tickSize, y,
+                0,        y
+            );
+            final String text = String.format("%02d", num);
+            final int    txtX = 2*textOffset;
+            final int    txtY = y + textOffset - 8;
+            g.setColor(bgColor); g.drawString(text, txtX,     txtY);
+            g.setColor( hColor); g.drawString(text, txtX + 1, txtY - 1);
 
             n--;
         }
@@ -173,6 +208,8 @@ public class Canvas extends JPanel {
         final int tickSpacing = w / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;
+
+        g.setColor(fgColor);
 
         int n = 1;
         while (n <= numTicks) {
