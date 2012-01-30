@@ -43,12 +43,12 @@ public class Maker extends JFrame {
         hLabel     = new JLabel("H", JLabel.RIGHT);
         pLabel     = new JLabel("P", JLabel.RIGHT);
 
-        alphaNum   = new JTextField("0.002");
-        betaNum    = new JTextField("0.0002");
+        alphaNum   = new JTextField("0.001");
+        betaNum    = new JTextField("0.0001");
         aNum       = new JTextField("0.1");
-        bNum       = new JTextField("0.2");
+        bNum       = new JTextField("0.1");
         hNum       = new JTextField("1000");
-        pNum       = new JTextField("49");
+        pNum       = new JTextField("99");
 
         grid.add(alphaLabel);
         grid.add(alphaNum);
