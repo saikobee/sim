@@ -11,12 +11,16 @@ public class Maker extends JFrame {
      */
     private JTextField alphaNum;
     private JTextField betaNum;
+    private JTextField kappaNum;
+    private JTextField kNum;
     private JTextField aNum;
     private JTextField bNum;
     private JTextField hNum;
     private JTextField pNum;
     private JLabel     alphaLabel;
     private JLabel     betaLabel;
+    private JLabel     kappaLabel;
+    private JLabel     kLabel;
     private JLabel     aLabel;
     private JLabel     bLabel;
     private JLabel     hLabel;
@@ -38,6 +42,8 @@ public class Maker extends JFrame {
 
         alphaLabel = new JLabel("α", JLabel.RIGHT);
         betaLabel  = new JLabel("β", JLabel.RIGHT);
+        kappaLabel = new JLabel("κ", JLabel.RIGHT);
+        kLabel     = new JLabel("k", JLabel.RIGHT);
         aLabel     = new JLabel("a", JLabel.RIGHT);
         bLabel     = new JLabel("b", JLabel.RIGHT);
         hLabel     = new JLabel("H", JLabel.RIGHT);
@@ -45,6 +51,8 @@ public class Maker extends JFrame {
 
         alphaNum   = new JTextField("0.001");
         betaNum    = new JTextField("0.0001");
+        kappaNum   = new JTextField("0.005");
+        kNum       = new JTextField("2.5");
         aNum       = new JTextField("0.1");
         bNum       = new JTextField("0.1");
         hNum       = new JTextField("1000");
@@ -55,6 +63,12 @@ public class Maker extends JFrame {
 
         grid.add(betaLabel);
         grid.add(betaNum);
+
+        grid.add(kappaLabel);
+        grid.add(kappaNum);
+
+        grid.add(kLabel);
+        grid.add(kNum);
 
         grid.add(aLabel);
         grid.add(aNum);
@@ -96,6 +110,8 @@ public class Maker extends JFrame {
             new GrapherMaker(
                 new Double(alphaNum.getText()),
                 new Double(betaNum.getText()),
+                new Double(kappaNum.getText()),
+                new Double(kNum.getText()),
                 new Double(aNum.getText()),
                 new Double(bNum.getText()),
                 new Integer(hNum.getText()),
@@ -113,6 +129,8 @@ public class Maker extends JFrame {
             new GrapherMaker(
                 new Double(alphaNum.getText()),
                 new Double(betaNum.getText()),
+                new Double(kappaNum.getText()),
+                new Double(kNum.getText()),
                 new Double(aNum.getText()),
                 new Double(bNum.getText()),
                 new Integer(hNum.getText()),
