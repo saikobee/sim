@@ -77,15 +77,15 @@ public class Canvas extends JPanel {
         g.setBackground(bgColor);
         g.clearRect(0, 0, w, h);
 
-        Debug.printf("\n");
-        Debug.printf("HHHH\n");
-        Debug.printf("====\n");
+        //Debug.printf("\n");
+        //Debug.printf("HHHH\n");
+        //Debug.printf("====\n");
         drawLines(g, hMax, hPoints, hColor);
         // drawPoints(g, hPoints, hColor);
 
-        Debug.printf("\n");
-        Debug.printf("PPPP\n");
-        Debug.printf("====\n");
+        //Debug.printf("\n");
+        //Debug.printf("PPPP\n");
+        //Debug.printf("====\n");
         drawLines(g, pMax, pPoints, pColor);
         // drawPoints(g, pPoints, pColor);
 
@@ -104,7 +104,7 @@ public class Canvas extends JPanel {
 
         g.setColor(color);
 
-        Debug.printf("size=%d, max=%d\n", size, max);
+        //Debug.printf("size=%d, max=%d\n", size, max);
 
         Iterator<Point> it = points.iterator();
 
@@ -116,8 +116,8 @@ public class Canvas extends JPanel {
             final int x2 = scaledX(p2.x, size);
             final int y2 = scaledY(p2.y, max);
 
-            Debug.printf("p1=(%d, %d)\n", p1.x, p1.y);
-            Debug.printf("p2=(%d, %d)\n", p2.x, p2.y);
+            //Debug.printf("p1=(%d, %d)\n", p1.x, p1.y);
+            //Debug.printf("p2=(%d, %d)\n", p2.x, p2.y);
             circle(g, x1, y1, r);
             circle(g, x2, y2, r);
             g.drawLine(x1, y1, x2, y2);
@@ -204,7 +204,7 @@ public class Canvas extends JPanel {
 
         // g.drawLine(0, h - 1, w, h - 1);
 
-        final int numTicks    = Math.min(size, 12);
+        final int numTicks    = Math.max(1, Math.min(size, 12));
         final int tickSpacing = w / numTicks;
         final int tickSize    = 4;
         final int textOffset  = 4;

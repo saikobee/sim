@@ -60,6 +60,8 @@ public class PhaseCanvas extends JPanel {
             RenderingHints.VALUE_ANTIALIAS_ON
         );
 
+        rCur = rMax;
+
         g.setFont(font);
         g.setStroke(strokeBig);
         g.setBackground(bgColor);
@@ -133,8 +135,13 @@ public class PhaseCanvas extends JPanel {
     private int scaledX(int x) { return (int) (x * (getWidth()  / (double) hMax)); }
     private int scaledY(int y) { return (int) (y * (getHeight() / (double) pMax)); }
 
+    private double rMax  = 10;
+    private double rMin  =  4;
+    private double rStep = -0.1;
+    private double rCur  = rMax;
     private void circle(Graphics g, int x, int y) {
-        final int r = 6;
+        rCur = Math.min(rMax, Math.min(rMax, rCur + rStep));
+        final int r = (int) rCur;
         g.fillOval(x - r, y - r, 2*r, 2*r);
     }
 
