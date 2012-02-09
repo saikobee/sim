@@ -2,22 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.UIManager.*;
 
-public class GUI extends JFrame {
+public class Helper extends JFrame {
+    private JPanel bottomBar;
+    private JPanel topBar;
+
     private Canvas canvas;
 
-    public GUI() {
-        setNiceTheme();
+    public Helper(Canvas canvas) {
+        this.canvas = canvas;
 
-        canvas = new Canvas(this);
-        add(canvas);
+        setLayout(new BorderLayout());
+
+        bottomBar = new BottomBar(canvas);
+        topBar    = new TopBar(canvas);
+
+        add(bottomBar, BorderLayout.SOUTH);
+        add(topBar,    BorderLayout.NORTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         pack();
 
         setVisible(true);
-
-        new Helper(canvas);
     }
 
     private void setNiceTheme() {

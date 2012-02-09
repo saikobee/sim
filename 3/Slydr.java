@@ -10,6 +10,8 @@ public class Slydr extends JPanel {
 
     private ChangeListener cl;
 
+    private int value;
+
     private JPanel split;
 
     private static final int borderWidth = 8;
@@ -17,7 +19,9 @@ public class Slydr extends JPanel {
     public Slydr(String name, int min, int max, int val) {
         label  = new JLabel(name);
         slider = new JSlider(JSlider.HORIZONTAL, min, max, val);
-        field  = new JTextField("" + max);
+        field  = new JTextField("" + val);
+
+        value = val;
 
         final int size = Math.max(1, Math.abs(max - min));
 
@@ -42,15 +46,14 @@ public class Slydr extends JPanel {
     }
 
     public void setValue(int n) {
-        if (slider.getValue() != n) {
-            change();
-        }
+        change();
 
         slider.setValue(n);
-        field.setText("" + n);
+        value = slider.getValue();
+        field.setText("" + value);
     }
 
-    public int getValue() { return slider.getValue(); }
+    public int getValue() { return value; }
 
     private void change() {
         if (cl != null) {

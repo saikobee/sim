@@ -8,6 +8,8 @@ public class Canvas extends JPanel implements MouseListener {
     private Color bgColor = Util.gray(20);
     private Color fgColor = Util.gray(80);
 
+    private JFrame parent;
+
     private boolean isPlaying;
 
     private final int STROKE_WIDTH = 2;
@@ -24,7 +26,9 @@ public class Canvas extends JPanel implements MouseListener {
     private int cy =  0;
     private int cr = 10;
 
-    public Canvas() {
+    public Canvas(JFrame parent) {
+        this.parent = parent;
+        parent.setBackground(bgColor);
         isPlaying = false;
         setPreferredSize(preferredSize);
         addMouseListener(this);
@@ -79,7 +83,9 @@ public class Canvas extends JPanel implements MouseListener {
         Util.circle(g, cx, cy, cr);
     }
 
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
         final int button = e.getButton();
         final int x = e.getX();
         final int y = e.getY();
@@ -89,9 +95,6 @@ public class Canvas extends JPanel implements MouseListener {
 
         repaint();
     }
-
-    public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
 }
