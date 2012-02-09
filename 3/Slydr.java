@@ -71,6 +71,7 @@ public class Slydr extends JPanel {
                 setValue(new Integer(field.getText()));
             }
             catch (NumberFormatException ex) {
+                field.setText("" + value);
             }
         }
     }
