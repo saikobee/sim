@@ -8,6 +8,8 @@ public class Canvas extends JPanel implements MouseListener {
     private Color bgColor = Util.gray(20);
     private Color fgColor = Util.gray(80);
 
+    private boolean isPlaying;
+
     private final int STROKE_WIDTH = 2;
     private final Stroke stroke = new BasicStroke(
         STROKE_WIDTH,
@@ -23,8 +25,22 @@ public class Canvas extends JPanel implements MouseListener {
     private int cr = 10;
 
     public Canvas() {
+        isPlaying = false;
         setPreferredSize(preferredSize);
         addMouseListener(this);
+    }
+
+    public void setTimeStep (int n) { Debug.printf("time step = %d\n", n); }
+    public void setGravity  (int n) { Debug.printf("gravity   = %d\n", n); }
+    public void setMagnetism(int n) { Debug.printf("magnetism = %d\n", n); }
+    public void setDelay    (int n) { Debug.printf("delay     = %d\n", n); }
+
+    public void play() {
+        isPlaying = !isPlaying;
+    }
+
+    public void reset() {
+        isPlaying = false;
     }
 
     public void paintComponent(Graphics g) {

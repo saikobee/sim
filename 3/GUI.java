@@ -3,7 +3,7 @@ import java.awt.*;
 import javax.swing.UIManager.*;
 
 public class GUI extends JFrame {
-    private JPanel canvas;
+    private Canvas canvas;
     private JPanel bottomBar;
     private JPanel topBar;
 
@@ -13,8 +13,8 @@ public class GUI extends JFrame {
         setLayout(new BorderLayout());
 
         canvas    = new Canvas();
-        bottomBar = new BottomBar();
-        topBar    = new TopBar();
+        bottomBar = new BottomBar(canvas);
+        topBar    = new TopBar(canvas);
 
         add(canvas,    BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
