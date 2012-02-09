@@ -4,18 +4,21 @@ import javax.swing.UIManager.*;
 
 public class GUI extends JFrame {
     private JPanel canvas;
-    private JPanel sidebar;
+    private JPanel bottomBar;
+    private JPanel topBar;
 
     public GUI() {
         setNiceTheme();
 
         setLayout(new BorderLayout());
 
-        canvas  = new Canvas();
-        sidebar = new Sidebar();
+        canvas    = new Canvas();
+        bottomBar = new BottomBar();
+        topBar    = new TopBar();
 
-        add(canvas,  BorderLayout.CENTER);
-        add(sidebar, BorderLayout.WEST);
+        add(canvas,    BorderLayout.CENTER);
+        add(bottomBar, BorderLayout.SOUTH);
+        add(topBar,    BorderLayout.NORTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 

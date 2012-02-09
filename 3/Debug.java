@@ -20,4 +20,10 @@ public class Debug {
 
         out.println(args[args.length - 1]);
     }
+
+    public static void printf(String format, Object... args) {
+        if (DEBUG) {
+            out.printf(format, args);
+        }
+    }
 }
