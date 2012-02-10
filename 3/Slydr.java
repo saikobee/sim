@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class Slydr extends JPanel {
     private JLabel     label;
     private JSlider    slider;
-    private JTextField field;
+    private JSpinner   spinner;
 
     private ChangeListener cl;
 
@@ -16,10 +16,12 @@ public class Slydr extends JPanel {
 
     private static final int borderWidth = 8;
 
+    private static final int step = 1;
+
     public Slydr(String name, int min, int max, int val) {
-        label  = new JLabel(name);
-        slider = new JSlider(JSlider.HORIZONTAL, min, max, val);
-        field  = new JTextField("" + val);
+        label   = new JLabel(name);
+        slider  = new JSlider(JSlider.HORIZONTAL, min, max, val);
+        spinner = new JSpinner(new SpinnerNumberModel(val, min, max, step));
 
         value = val;
 
@@ -30,8 +32,8 @@ public class Slydr extends JPanel {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
-        field.addActionListener(new FieldChanged());
-        slider.addChangeListener(new SliderChanged());
+        spinner.addChangeListener(new FieldChanged());
+        slider .addChangeListener(new SliderChanged());
 
         setLayout(new BorderLayout());
         setBorder(Util.makeBorder(borderWidth));
@@ -39,7 +41,7 @@ public class Slydr extends JPanel {
         split = new JPanel();
         split.setLayout(new GridLayout(0, 2));
         split.add(label);
-        split.add(field);
+        split.add(spinner);
 
         add(split,  BorderLayout.NORTH);
         add(slider, BorderLayout.CENTER);
@@ -50,7 +52,7 @@ public class Slydr extends JPanel {
 
         slider.setValue(n);
         value = slider.getValue();
-        field.setText("" + value);
+        spinner.setValue(value);
     }
 
     public int getValue() { return value; }
@@ -65,14 +67,9 @@ public class Slydr extends JPanel {
         this.cl = cl;
     }
 
-    private class FieldChanged implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            try {
-                setValue(new Integer(field.getText()));
-            }
-            catch (NumberFormatException ex) {
-                field.setText("" + value);
-            }
+    private class FieldChanged implements ChangeListener {
+        public void stateChanged(ChangeEvent event) {
+            setValue((Integer) spinner.getValue());
         }
     }
 
