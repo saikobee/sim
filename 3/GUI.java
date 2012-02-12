@@ -4,20 +4,22 @@ import javax.swing.UIManager.*;
 
 public class GUI extends JFrame {
     private Canvas canvas;
+    private Helper helper;
 
     public GUI() {
         setNiceTheme();
 
+        setLayout(new BorderLayout());
         canvas = new Canvas(this);
-        add(canvas);
+        helper = new Helper(canvas);
+        add(canvas, BorderLayout.CENTER);
+        add(helper, BorderLayout.WEST);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         pack();
 
         setVisible(true);
-
-        new Helper(canvas);
     }
 
     private void setNiceTheme() {

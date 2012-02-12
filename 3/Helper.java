@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.UIManager.*;
 
-public class Helper extends JFrame {
+public class Helper extends JPanel {
     private JPanel bottomBar;
     private JPanel topBar;
 
@@ -18,10 +18,6 @@ public class Helper extends JFrame {
 
         add(bottomBar, BorderLayout.SOUTH);
         add(topBar,    BorderLayout.NORTH);
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        pack();
 
         setVisible(true);
     }

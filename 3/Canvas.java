@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Canvas extends JPanel implements MouseListener {
+public class Canvas
+extends JPanel
+implements MouseListener, ComponentListener {
     private Dimension preferredSize = new Dimension(300, 300);
 
     private Color bgColor = Util.gray(20);
@@ -35,6 +37,7 @@ public class Canvas extends JPanel implements MouseListener {
         sim = new Simulation();
         setPreferredSize(preferredSize);
         addMouseListener(this);
+        addComponentListener(this);
         new Runner().start();
     }
 
@@ -128,4 +131,18 @@ public class Canvas extends JPanel implements MouseListener {
             }
         }
     }
+
+    public void componentResized(ComponentEvent e) {
+        Component c = (Component) e.getSource();
+        final int w = c.getWidth();
+        final int h = c.getHeight();
+        Params.x = w/2;
+        Params.y = h/2;
+
+        repaint();
+    }
+
+    public void componentMoved (ComponentEvent e) {}
+    public void componentHidden(ComponentEvent e) {}
+    public void componentShown (ComponentEvent e) {}
 }
