@@ -13,7 +13,6 @@ public class Simulation {
     }
 
     public void step() {
-        Debug.echo("Simulation is stepping");
         for (Pendulum pendulum: pendulums) {
             pendulum.step();
         }
