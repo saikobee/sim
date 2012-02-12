@@ -7,11 +7,20 @@ public class Util {
         return new Color(brightness, brightness, brightness);
     }
 
-    public static void circle(Graphics2D g, int x, int y, int r) {
+    public static void fillCircle(Graphics2D g, int x, int y, int r) {
+        g.fillOval(x-r, y-r, r+r, r+r);
+    }
+
+    public static void drawCircle(Graphics2D g, int x, int y, int r) {
         g.drawOval(x-r, y-r, r+r, r+r);
     }
 
     public static Border makeBorder(int n) {
         return BorderFactory.createEmptyBorder(n, n, n, n);
+    }
+
+    public static void sleep(long time) {
+        try { Thread.sleep(time); }
+        catch (InterruptedException e) {}
     }
 }

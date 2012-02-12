@@ -8,6 +8,8 @@ public class Canvas extends JPanel implements MouseListener {
     private Color bgColor = Util.gray(20);
     private Color fgColor = Util.gray(80);
 
+    private Simulation sim;
+
     private JFrame parent;
 
     private boolean isPlaying;
@@ -30,22 +32,16 @@ public class Canvas extends JPanel implements MouseListener {
         this.parent = parent;
         parent.setBackground(bgColor);
         isPlaying = false;
+        sim = new Simulation();
         setPreferredSize(preferredSize);
         addMouseListener(this);
+        new Runner().start();
     }
 
-    public void setTimeStep (int n) { Debug.printf("time step = %d\n", n); }
-    public void setGravity  (int n) { Debug.printf("gravity   = %d\n", n); }
-    public void setMagnetism(int n) { Debug.printf("magnetism = %d\n", n); }
-    public void setDelay    (int n) { Debug.printf("delay     = %d\n", n); }
-
-    public void play() {
-        isPlaying = !isPlaying;
-    }
-
-    public void reset() {
-        isPlaying = false;
-    }
+    public void setTimeStep (int n) { Debug.printf("time step = %d\n", n); Params.timestep  = n;}
+    public void setGravity  (int n) { Debug.printf("gravity   = %d\n", n); Params.gravity   = n;}
+    public void setMagnetism(int n) { Debug.printf("magnetism = %d\n", n); Params.magnetism = n;}
+    public void setDelay    (int n) { Debug.printf("delay     = %d\n", n); Params.delay     = n;}
 
     public void paintComponent(Graphics g) {
         w = getWidth();
@@ -58,7 +54,8 @@ public class Canvas extends JPanel implements MouseListener {
         g.setStroke(stroke);
         enableAA(g);
         drawBG(g);
-        drawPendulums(g);
+        g.setColor(fgColor);
+        sim.draw(g);
     }
 
     private void enableAA(Graphics2D g) {
@@ -80,7 +77,7 @@ public class Canvas extends JPanel implements MouseListener {
 
     private void drawPendulums(Graphics2D g) {
         g.setColor(fgColor);
-        Util.circle(g, cx, cy, cr);
+        Util.fillCircle(g, cx, cy, cr);
     }
 
     public void mouseReleased(MouseEvent e) {}
@@ -97,4 +94,38 @@ public class Canvas extends JPanel implements MouseListener {
     }
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
+
+    private class Repainter extends Thread {
+        public void run() {
+            while (true) {
+                repaint();
+                Util.sleep(Params.delay);
+            }
+        }
+    }
+
+    public void play() {
+        isPlaying = !isPlaying;
+    }
+
+    public void reset() {
+        isPlaying = false;
+    }
+
+    public void step() {
+        sim.step();
+        repaint();
+    }
+
+    private class Runner extends Thread {
+        public void run() {
+            while (true) {
+                if (isPlaying) {
+                    step();
+                }
+
+                Util.sleep(Params.delay);
+            }
+        }
+    }
 }
