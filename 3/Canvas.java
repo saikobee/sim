@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class Canvas
 extends JPanel
 implements MouseListener, ComponentListener {
-    private Dimension preferredSize = new Dimension(300, 300);
+    private Dimension preferredSize = new Dimension(500, 500);
 
     private Color bgColor = Util.gray(20);
     private Color fgColor = Util.gray(80);

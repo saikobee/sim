@@ -7,5 +7,5 @@ public class Params {
     public static int x = 150;
     public static int y = 150;
 
-    public static int r = 100;
+    public static int r = 200;
 }

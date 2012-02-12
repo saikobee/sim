@@ -64,9 +64,9 @@ public class Pendulum {
         final int x = Params.x;
         final int y = Params.y;
 
-        g.drawLine(x + ax, y + ay, x + bx, y + by);
-        g.drawLine(x + bx, y + by, x + dx, y + dy);
-        g.drawLine(x + dx, y + dy, x + cx, y + cy);
-        g.drawLine(x + cx, y + cy, x + ax, y + ay);
+        final int[] xs = {x + ax, x + bx, x + dx, x + cx};
+        final int[] ys = {y + ay, y + by, y + dy, y + cy};
+
+        g.fillPolygon(xs, ys, xs.length);
     }
 }
