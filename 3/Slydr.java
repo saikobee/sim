@@ -28,7 +28,7 @@ public class Slydr extends JPanel {
         final int size = Math.max(1, Math.abs(max - min));
 
         //slider.setMajorTickSpacing(size/4);
-        slider.setMinorTickSpacing(size/16);
+        slider.setMinorTickSpacing(Math.max(1, size/16));
         slider.setPaintTicks(true);
         //slider.setPaintLabels(true);
 

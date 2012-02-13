@@ -17,10 +17,10 @@ public class BottomBar extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         Slydr[] slydrs = new Slydr[] {
-            t = new Slydr("Time step", 1,  500, Params.timestep),
-            g = new Slydr("Gravity",   1,  100, Params.gravity),
-            m = new Slydr("Magnetism", 1,  100, Params.magnetism),
-            d = new Slydr("Delay",     1, 1000, Params.delay),
+            t = new Slydr("Time step", 1, Params.timestep,  Params.timestep),
+            g = new Slydr("Gravity",   0, 10,               Params.gravity),
+            m = new Slydr("Magnetism", 1, Params.magnetism, Params.magnetism),
+            d = new Slydr("Delay",     1, 1000,             Params.delay),
         };
 
         for (Slydr slydr: slydrs) {

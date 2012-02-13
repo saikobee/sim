@@ -35,20 +35,32 @@ public class Pendulum {
             if (this == that)
                 continue;
 
-            final int direction = 1;
-            final double distance = Util.distance(
+            final boolean attract   = that.isClockwiseOf(this);
+            final double  direction = attract? +1: -1;
+            final double  distance  = Util.distance(
                 Params.r * Math.cos(this.theta),
                 Params.r * Math.sin(this.theta),
                 Params.r * Math.cos(that.theta),
                 Params.r * Math.sin(that.theta)
             );
             final double angle = this.minimumAngleBetween(that);
-            vth += direction * (1/(distance * distance)) * Math.sin(angle);
+            final double dvth  = direction * Params.magnetism * (1/(distance * distance)) * Math.sin(angle);
+            Debug.echo();
+            Debug.echo("direction  =", direction);
+            Debug.echo("magnetism  =", Params.magnetism);
+            Debug.echo("1/d^2      =", 1/(distance * distance));
+            Debug.echo("sin(angle) =", Math.sin(angle));
+            Debug.echo("dvtheta (magnetism) =", dvth);
+            vth += dvth;
         }
 
         vth += Params.gravity * Math.cos(-theta);
         final double th  = vtheta / Params.timestep;
         return new Pendulum(theta + th, vtheta - vth, color);
+    }
+
+    private boolean isClockwiseOf(Pendulum that) {
+        return this.theta - that.theta < that.theta - this.theta;
     }
 
     private double minimumAngleBetween(Pendulum that) {

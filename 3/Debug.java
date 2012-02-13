@@ -11,6 +11,7 @@ public class Debug {
 
         if (args.length < 1) {
             out.println();
+            return;
         }
 
         for (int i = 0; i < (args.length - 1); i++) {

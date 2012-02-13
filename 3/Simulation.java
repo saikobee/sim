@@ -13,7 +13,7 @@ public class Simulation {
         pendulums = new ArrayList<Pendulum>();
     }
 
-    public void step() {
+    public synchronized void step() {
         List<Pendulum> theFuture = new ArrayList<Pendulum>(pendulums.size());
 
         for (Pendulum pendulum: pendulums) {
@@ -27,7 +27,7 @@ public class Simulation {
         pendulums.clear();
     }
 
-    public void addPendulumAtAngle(double theta) {
+    public synchronized void addPendulumAtAngle(double theta) {
         pendulums.add(new Pendulum(theta));
     }
 
