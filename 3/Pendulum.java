@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.List;
 
 public class Pendulum {
     private double theta  = 0;
@@ -7,20 +8,36 @@ public class Pendulum {
     private static final int boxWidth  = 20;
     private static final int boxHeight = 30;
 
+    private Color color;
+
     public Pendulum() {
+        color = Util.randomColor();
     }
 
-    public void step() {
-        vtheta -= Params.gravity * Math.cos(theta);
-        theta  += vtheta / Params.timestep;
+    public Pendulum(double theta) {
+        this();
+        this.theta = theta;
+    }
+
+    private Pendulum(double theta, double vtheta, Color color) {
+        this.theta  = theta;
+        this.vtheta = vtheta;
+        this.color  = color;
+    }
+
+    public Pendulum stepped(List<Pendulum> pendulums) {
+        final double vth = Params.gravity * Math.cos(theta);
+        final double th  = vtheta / Params.timestep;
+
+        return new Pendulum(theta + th, vtheta - vth, color);
     }
 
     public void draw(Graphics2D g) {
         final int x = Params.x + (int) (Params.r * Math.cos(theta));
         final int y = Params.y - (int) (Params.r * Math.sin(theta));
 
+        g.setColor(color);
         g.drawLine(Params.x, Params.y, x, y);
-        Util.fillCircle(g, x, y, 4);
         drawBob(g);
     }
 

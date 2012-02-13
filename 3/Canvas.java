@@ -87,11 +87,10 @@ implements MouseListener, ComponentListener {
     public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
         final int button = e.getButton();
-        final int x = e.getX();
-        final int y = e.getY();
+        final int x = e.getX() - Params.x;
+        final int y = e.getY() - Params.y;
 
-        cx = x;
-        cy = y;
+        sim.addPendulumAtAngle(-Math.atan2(y, x));
 
         repaint();
     }

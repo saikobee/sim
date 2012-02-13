@@ -27,10 +27,10 @@ public class Slydr extends JPanel {
 
         final int size = Math.max(1, Math.abs(max - min));
 
-        slider.setMajorTickSpacing(size/4);
-        slider.setMinorTickSpacing(size/10);
+        //slider.setMajorTickSpacing(size/4);
+        slider.setMinorTickSpacing(size/16);
         slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
+        //slider.setPaintLabels(true);
 
         spinner.addChangeListener(new FieldChanged());
         slider .addChangeListener(new SliderChanged());
