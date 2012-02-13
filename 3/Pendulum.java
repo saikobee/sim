@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.List;
 
 public class Pendulum {
-    private double theta  = 0;
-    private double vtheta = 0;
+    private final double theta;
+    private final double vtheta;
 
     private static final int boxWidth  = 20;
     private static final int boxHeight = 30;
@@ -11,25 +11,51 @@ public class Pendulum {
     private Color color;
 
     public Pendulum() {
-        color = Util.randomColor();
+        this.color  = Util.randomColor();
+        this.theta  = 0;
+        this.vtheta = 0;
     }
 
     public Pendulum(double theta) {
-        this();
-        this.theta = theta;
+        this.color  = Util.randomColor();
+        this.theta  = theta % (2*Math.PI);
+        this.vtheta = 0;
     }
 
     private Pendulum(double theta, double vtheta, Color color) {
-        this.theta  = theta;
-        this.vtheta = vtheta;
         this.color  = color;
+        this.theta  = theta % (2*Math.PI);
+        this.vtheta = vtheta;
     }
 
     public Pendulum stepped(List<Pendulum> pendulums) {
-        final double vth = Params.gravity * Math.cos(theta);
-        final double th  = vtheta / Params.timestep;
+        double vth = 0;
 
+        for (Pendulum that: pendulums) {
+            if (this == that)
+                continue;
+
+            final int direction = 1;
+            final double distance = Util.distance(
+                Params.r * Math.cos(this.theta),
+                Params.r * Math.sin(this.theta),
+                Params.r * Math.cos(that.theta),
+                Params.r * Math.sin(that.theta)
+            );
+            final double angle = this.minimumAngleBetween(that);
+            vth += direction * (1/(distance * distance)) * Math.sin(angle);
+        }
+
+        vth += Params.gravity * Math.cos(-theta);
+        final double th  = vtheta / Params.timestep;
         return new Pendulum(theta + th, vtheta - vth, color);
+    }
+
+    private double minimumAngleBetween(Pendulum that) {
+        return Math.min(
+            this.theta - that.theta,
+            that.theta - this.theta
+        );
     }
 
     public void draw(Graphics2D g) {
@@ -85,5 +111,9 @@ public class Pendulum {
         final int[] ys = {y + ay, y + by, y + dy, y + cy};
 
         g.fillPolygon(xs, ys, xs.length);
+    }
+
+    public String toString() {
+        return String.format("#<Pendulum theta=%07.3f vtheta=%07.3f>", theta, vtheta);
     }
 }
