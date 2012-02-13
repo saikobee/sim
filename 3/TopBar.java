@@ -38,7 +38,7 @@ public class TopBar extends JPanel {
 
     private class DoStep implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            sim.step();
+            sim.maybeStep();
         }
     }
 

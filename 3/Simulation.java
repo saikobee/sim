@@ -18,6 +18,11 @@ public class Simulation {
         }
     }
 
+    public void reset() {
+        pendulums.clear();
+        pendulums.add(new Pendulum());
+    }
+
     public void draw(Graphics2D g) {
         Util.fillCircle(g, Params.x, Params.y, radius);
         for (Pendulum pendulum: pendulums) {

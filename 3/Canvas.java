@@ -113,11 +113,19 @@ implements MouseListener, ComponentListener {
 
     public void reset() {
         isPlaying = false;
+        sim.reset();
+        repaint();
     }
 
     public void step() {
         sim.step();
         repaint();
+    }
+
+    public void maybeStep() {
+        if (! isPlaying) {
+            step();
+        }
     }
 
     private class Runner extends Thread {
