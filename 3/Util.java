@@ -35,6 +35,36 @@ public class Util {
         );
     }
 
+    public static Color colorFromHue(float hue) {
+        return Color.getHSBColor(
+            hue,
+            0.50f,
+            0.75f
+        );
+    }
+
+    private static int   index = 0;
+    private static float step  = 1.0f / 8f;
+    private static Color[] rainbow = {
+        colorFromHue(0*step),
+        colorFromHue(1*step),
+        colorFromHue(2*step),
+        colorFromHue(3*step),
+        colorFromHue(4*step),
+        colorFromHue(5*step),
+        colorFromHue(6*step),
+        colorFromHue(7*step),
+    };
+
+    public static Color nextRainbowColor() {
+        Color color = rainbow[index];
+
+        index++;
+        index %= rainbow.length;
+
+        return color;
+    }
+
     private static int randomComponent() {
         return random.nextInt(64) + 128;
     }

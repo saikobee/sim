@@ -1,7 +1,7 @@
 import java.io.*;
 
 public class Debug {
-    private static final boolean     DEBUG = true;
+    private static final boolean     DEBUG = false;
     private static final PrintStream out   = System.out;
 
     public static void echo(Object... args) {

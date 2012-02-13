@@ -11,13 +11,13 @@ public class Pendulum {
     private Color color;
 
     public Pendulum() {
-        this.color  = Util.randomColor();
+        this.color  = Util.nextRainbowColor();
         this.theta  = 0;
         this.vtheta = 0;
     }
 
     public Pendulum(double theta) {
-        this.color  = Util.randomColor();
+        this.color  = Util.nextRainbowColor();
         this.theta  = theta % (2*Math.PI);
         this.vtheta = 0;
     }
@@ -31,18 +31,20 @@ public class Pendulum {
     public Pendulum stepped(List<Pendulum> pendulums) {
         double vth = 0;
 
+        final double minDistance = 0.1;
+
         for (Pendulum that: pendulums) {
             if (this == that)
                 continue;
 
             final boolean attract   = that.isClockwiseOf(this);
             final double  direction = attract? +1: -1;
-            final double  distance  = Util.distance(
+            final double  distance  = Math.max(minDistance, Util.distance(
                 Params.r * Math.cos(this.theta),
                 Params.r * Math.sin(this.theta),
                 Params.r * Math.cos(that.theta),
                 Params.r * Math.sin(that.theta)
-            );
+            ));
             final double angle = this.minimumAngleBetween(that);
             final double dvth  = direction * Params.magnetism * (1/(distance * distance)) * Math.sin(angle);
             Debug.echo();
@@ -55,7 +57,8 @@ public class Pendulum {
         }
 
         vth += Params.gravity * Math.cos(-theta);
-        final double th  = vtheta / Params.timestep;
+        vth *= 1 - Params.friction;
+        final double th  = (vtheta - vth) / Params.timestep;
         return new Pendulum(theta + th, vtheta - vth, color);
     }
 
