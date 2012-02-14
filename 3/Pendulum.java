@@ -57,13 +57,13 @@ public class Pendulum {
         }
 
         vth += Params.gravity * Math.cos(-theta);
-        vth *= 1 - Params.friction;
+        //vth *= 1 - Params.friction;
         final double th  = (vtheta - vth) / Params.timestep;
         return new Pendulum(theta + th, vtheta - vth, color);
     }
 
     private boolean isClockwiseOf(Pendulum that) {
-        return this.theta - that.theta < that.theta - this.theta;
+        return this.theta < that.theta;
     }
 
     private double minimumAngleBetween(Pendulum that) {
