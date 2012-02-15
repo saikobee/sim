@@ -1,8 +1,8 @@
 public class Params {
     public static int gravity   = 1;
     public static int timestep  = 10000;
-    public static int magnetism = 20000;
-    public static int delay     = 1000/60;
+    public static int magnetism = 5000;
+    public static int delay     = 4;
 
     public static double friction = 0.10;
 
