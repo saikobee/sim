@@ -1,6 +1,6 @@
 public abstract class Event implements Comparable {
     protected long time;
-    protected int  n;
+    protected long n;
 
     public void simulate() {
         Sim.time = time;

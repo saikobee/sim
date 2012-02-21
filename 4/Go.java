@@ -1,16 +1,14 @@
 public class Go {
-    public Go() {
-        initialize();
+    public Go(int n) {
+        initialize(n);
         while (! Sim.empty()) {
             Sim.event().simulate();
-            Sim.display();
+            //Sim.display();
         }
-        Sim.stats();
+        //Sim.stats();
     }
 
-    private void initialize() {
-        final long time = 0;
-        final int  n    = 3;
-        Sim.add(Sim.makeEvent(time, n));
+    private void initialize(int n) {
+        Sim.add(Sim.makeEvent(0, n));
     }
 }
