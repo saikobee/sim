@@ -19,7 +19,7 @@ public class BottomBar extends JPanel {
         Slydr[] slydrs = new Slydr[] {
             t = new Slydr("Time step", 1, Params.timestep,  Params.timestep),
             g = new Slydr("Gravity",   0, 10,               Params.gravity),
-            m = new Slydr("Magnetism", 1, Params.magnetism, Params.magnetism),
+            m = new Slydr("Magnetism", 1, 20000,            Params.magnetism),
             d = new Slydr("Delay",     1, 1000,             Params.delay),
         };
 

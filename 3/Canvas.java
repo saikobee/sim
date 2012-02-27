@@ -16,7 +16,7 @@ implements MouseListener, ComponentListener {
 
     private boolean isPlaying;
 
-    private final int STROKE_WIDTH = 2;
+    private final int STROKE_WIDTH = 4;
     private final Stroke stroke = new BasicStroke(
         STROKE_WIDTH,
         BasicStroke.CAP_ROUND,
