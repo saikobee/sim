@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BlockList extends ArrayList<Block> {
     public BlockList(Sector[] theSectors, int nInode, int nBlocks) {
@@ -12,6 +13,8 @@ public class BlockList extends ArrayList<Block> {
 
     public String toString() {
         StringBuffer result = new StringBuffer();
+
+        Collections.sort(this);
 
         result.append("BlockList:");
         result.append("\tsize=" + size());

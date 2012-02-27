@@ -62,6 +62,7 @@ public class Editor extends JFrame {
     }
 
     private void showFs() {
+        System.out.println("========================================");
         System.out.println(Globals.fs);
     }
 

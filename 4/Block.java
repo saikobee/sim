@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Block extends Sector {
+public class Block extends Sector implements Comparable<Block> {
     protected static final int BLOCK_LENGTH = 8;
     protected byte[] bytes;
 
@@ -38,11 +38,33 @@ public class Block extends Sector {
         return (Block)Globals.fs.getSector(getBlockNumber(i));
     }
 
+    public void setBlock(int i, Block b) {
+        setBlockNumber(i, b.getNumber());
+    }
+
     public List<Block> getBlocks() {
         List<Block> result = new ArrayList<Block>();
 
+        result.add(this);
+
         for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
             result.add(getBlock(i));
+        }
+
+        return result;
+    }
+
+    public List<Block> getDoubleBlocks() {
+        List<Block> result = new ArrayList<Block>();
+        List<Block> links  = getBlocks();
+
+        result.add(this);
+
+        for (Block link: links) {
+            //result.add(link);
+            for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
+                result.add(link.getBlock(i));
+            }
         }
 
         return result;
@@ -85,13 +107,17 @@ public class Block extends Sector {
         return "" + result;
     }
 
+    public int compareTo(Block that) {
+        return this.number - that.number;
+    }
+
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        result.append("\nBlock:\n");
-        result.append("\tnumber=" + getNumber()  + "\n");
-        result.append("\tbytes="  + loadDirect() + "\n");
-        result.append("\n");
+        result.append("\nBlock:");
+        result.append("\tnumber="   + getNumber());
+        result.append("\tbytes=\""  + loadDirect() + "\"");
+        result.append("");
 
         return "" + result;
     }

@@ -60,10 +60,7 @@ public class Inode extends Sector {
     }
 
     protected void storeSingle(String data) {
-        if (data.length() > singleSizeMax())
-            throw new FileTooBig();
-
-        singleIndirectLink = Globals.fs.allocateSingleIndirect();
+        singleIndirectLink = Globals.fs.allocateBlock();
 
         final int BLOCK_LENGTH = Block.BLOCK_LENGTH;
         storeDirect(data);
@@ -71,33 +68,37 @@ public class Inode extends Sector {
         data = data.substring(Math.min(data.length(), BLOCK_LENGTH));
 
         for (int i = 0; i < LINKS_PER_BLOCK; i++) {
-            Block b = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(i));
+            Block b = Globals.fs.allocateBlock();
+            singleIndirectLink.setBlock(i, b);
 
             if (data.length() > 0) {
                 b.store(data);
-                Debug.printf("BLOCK LENGTH LOL %d\n", BLOCK_LENGTH);
                 data = data.substring(Math.min(data.length(), BLOCK_LENGTH));
             }
         }
     }
 
     protected void storeDouble(String data) {
-        if (data.length() > doubleSizeMax())
-            throw new FileTooBig();
-
         int BLOCK_LENGTH = Block.BLOCK_LENGTH;
         int SINGLE_SIZE  = LINKS_PER_BLOCK * BLOCK_LENGTH;
         int size = data.length();
 
         storeSingle(data);
+        data = data.substring(Math.min(singleSizeMax(), data.length()));
 
-        doubleIndirectLink = Globals.fs.allocateDoubleIndirect();
+        doubleIndirectLink = Globals.fs.allocateBlock();
 
         for (int i = 0; i < LINKS_PER_BLOCK; i++) {
-            Block single = doubleIndirectLink.getBlock(i);
+            Block single = Globals.fs.allocateBlock();
+            doubleIndirectLink.setBlock(i, single);
             for (int j = 0; j < LINKS_PER_BLOCK; j++) {
-                Block direct = single.getBlock(j);
-                direct.store(data.substring(i*BLOCK_LENGTH + j*SINGLE_SIZE));
+                Block direct = Globals.fs.allocateBlock();
+                single.setBlock(j, direct);
+
+                if (data.length() > 0) {
+                    direct.store(data);
+                    data = data.substring(Math.min(BLOCK_LENGTH, data.length()));
+                }
             }
         }
     }
@@ -120,8 +121,8 @@ public class Inode extends Sector {
         result.append("\tnumber="    + number + "\n");
         result.append("\tsize="      + size + "\n");
         result.append("\tdirect="    + directLink);
-        result.append("\tindirect="  + (one == null? null: one.getBlocks()));
-        result.append("\tindirect²=" + (two == null? null: two.getBlocks()));
+        result.append("\n\tindirect="  + (one == null? null: one.getBlocks()));
+        result.append("\n\tindirect²=" + (two == null? null: two.getDoubleBlocks()));
 
         return "" + result;
     }
