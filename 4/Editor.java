@@ -61,6 +61,10 @@ public class Editor extends JFrame {
         }
     }
 
+    private void showFs() {
+        System.out.println(Globals.fs);
+    }
+
     private void setEditorText(String str) {
         text.setText(str);
     }
@@ -83,7 +87,7 @@ public class Editor extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Save");
             Globals.fs.save(getFilename(), getEditorText());
-            System.out.println(Globals.fs);
+            showFs();
         }
     }
 
@@ -97,7 +101,7 @@ public class Editor extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Load");
             setEditorText(Globals.fs.load(getFilename()));
-            System.out.println(Globals.fs);
+            showFs();
         }
     }
 
@@ -110,6 +114,8 @@ public class Editor extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             System.out.println("Nuke");
+            Globals.fs.nuke();
+            showFs();
         }
     }
 
@@ -122,6 +128,8 @@ public class Editor extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             System.out.println("Delete");
+            Globals.fs.delete(getFilename());
+            showFs();
         }
     }
 

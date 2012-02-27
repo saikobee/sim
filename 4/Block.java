@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Block extends Sector {
     protected static final int BLOCK_LENGTH = 8;
     protected byte[] bytes;
@@ -15,9 +17,34 @@ public class Block extends Sector {
         }
         else {
             for (int i = 0; i < s.length(); i++) {
+                Debug.printf("Storing '%c'\n", s.charAt(i));
                 bytes[i] = (byte) s.charAt(i);
             }
         }
+        Debug.printf("Stored: \"");
+        for (byte b: bytes) {
+            Debug.printf("%c", (char)b);
+        }
+        Debug.printf("\"\n");
+    }
+
+    public int getBlockNumber(int i) {
+        return (bytes[i + i] << 8) | bytes[i + i + 1];
+    }
+
+    public void setBlockNumber(int i, int num) {
+        bytes[i + i    ] = (byte)((num >> 8) & 0xff);
+        bytes[i + i + 1] = (byte)((num >> 0) & 0xff);
+    }
+
+    public List<Block> getBlocks() {
+        List<Block> result = new ArrayList<Block>();
+
+        for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
+            result.add((Block)Globals.fs.getSector(getBlockNumber(i)));
+        }
+
+        return result;
     }
 
     public String loadDirect() {
@@ -27,14 +54,22 @@ public class Block extends Sector {
 
         int i = 0;
         while (i < BLOCK_LENGTH && bytes[i] != 0) {
-            result.append((char) bytes[i++]);
+            result.append((char)bytes[i++]);
         }
 
         return "" + result;
     }
 
     public String loadSingleIndirect() {
-        return "<<SINGLE INDIRECT>>";
+        StringBuffer result = new StringBuffer();
+
+        for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
+            Block block = (Block)Globals.fs.getSector(getBlockNumber(i));
+
+            result.append(block.loadDirect());
+        }
+
+        return "" + result;
     }
 
     public String loadDoubleIndirect() {

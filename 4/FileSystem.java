@@ -1,5 +1,6 @@
 public class FileSystem {
-    protected final int NUM_SECTORS = 8;
+    // NOTE: NUM_SECTORS may not exceed 2^16 under current implementation.
+    protected final int NUM_SECTORS = 16;
     protected final int NUM_INODES  = 4;
     protected final int NUM_BLOCKS  = NUM_SECTORS - NUM_INODES;
 
@@ -13,6 +14,10 @@ public class FileSystem {
         sectors       = new Sector[NUM_SECTORS];
         inodeFreeList = new InodeList(sectors, NUM_INODES);
         blockFreeList = new BlockList(sectors, NUM_INODES, NUM_SECTORS);
+    }
+
+    public Sector getSector(int n) {
+        return sectors[n];
     }
 
     protected Inode allocateInode() {
@@ -31,6 +36,16 @@ public class FileSystem {
         return blockFreeList.remove(0);
     }
 
+    protected Block allocateSingleIndirect() {
+        Block block = allocateBlock();
+
+        for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
+            block.setBlockNumber(i, allocateBlock().getNumber());
+        }
+
+        return block;
+    }
+
     protected String load(String name) {
         Inode inode = fileList.inodeForName(name);
         if (inode != null) {
@@ -38,6 +53,40 @@ public class FileSystem {
         }
 
         return inode != null? inode.load(): "Bad filename: " + name;
+    }
+
+    protected void delete(String name) {
+        File  file  = fileList.removeByName(name);
+        Inode inode = file.getInode();
+        delete(inode);
+    }
+
+    private void delete(File file) {
+        Inode inode = file.getInode();
+        delete(inode);
+    }
+
+    private void delete(Inode inode) {
+        inodeFreeList.add(inode);
+
+        Block zero = inode.getDirectLink();
+        Block one  = inode.getSingleIndirectLink();
+        Block two  = inode.getDoubleIndirectLink();
+
+        blockFreeList.add(inode.getDirectLink());
+
+        if (one != null) blockFreeList.add(inode.getSingleIndirectLink());
+        if (two != null) blockFreeList.add(inode.getDoubleIndirectLink());
+
+        inode.clear();
+    }
+
+    protected void nuke() {
+        for (File file: fileList) {
+            delete(file);
+        }
+
+        fileList.clear();
     }
 
     protected void save(String name, String contents) {
