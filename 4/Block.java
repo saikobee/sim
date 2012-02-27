@@ -12,15 +12,12 @@ public class Block extends Sector {
     public void store(String s) {
         super.store();
 
-        if (s.length() > BLOCK_LENGTH) {
-            throw new FileTooBig();
+        int len = Math.min(s.length(), BLOCK_LENGTH);
+        for (int i = 0; i < len; i++) {
+            Debug.printf("Storing '%c'\n", s.charAt(i));
+            bytes[i] = (byte) s.charAt(i);
         }
-        else {
-            for (int i = 0; i < s.length(); i++) {
-                Debug.printf("Storing '%c'\n", s.charAt(i));
-                bytes[i] = (byte) s.charAt(i);
-            }
-        }
+
         Debug.printf("Stored: \"");
         for (byte b: bytes) {
             Debug.printf("%c", (char)b);
@@ -37,11 +34,15 @@ public class Block extends Sector {
         bytes[i + i + 1] = (byte)((num >> 0) & 0xff);
     }
 
+    public Block getBlock(int i) {
+        return (Block)Globals.fs.getSector(getBlockNumber(i));
+    }
+
     public List<Block> getBlocks() {
         List<Block> result = new ArrayList<Block>();
 
         for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
-            result.add((Block)Globals.fs.getSector(getBlockNumber(i)));
+            result.add(getBlock(i));
         }
 
         return result;

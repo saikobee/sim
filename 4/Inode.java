@@ -65,43 +65,41 @@ public class Inode extends Sector {
 
         singleIndirectLink = Globals.fs.allocateSingleIndirect();
 
-        int BLOCK_LENGTH = Block.BLOCK_LENGTH;
-        int size = data.length();
-        storeDirect(data.substring(0, BLOCK_LENGTH));
+        final int BLOCK_LENGTH = Block.BLOCK_LENGTH;
+        storeDirect(data);
 
-        for (int i = 1; i <= LINKS_PER_BLOCK; i++) {
-            Block b = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(i - 1));
+        data = data.substring(Math.min(data.length(), BLOCK_LENGTH));
 
-            if (size >= i*BLOCK_LENGTH) {
-                b.store(data.substring(i*BLOCK_LENGTH, Math.min((i+1)*BLOCK_LENGTH, size)));
+        for (int i = 0; i < LINKS_PER_BLOCK; i++) {
+            Block b = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(i));
+
+            if (data.length() > 0) {
+                b.store(data);
+                Debug.printf("BLOCK LENGTH LOL %d\n", BLOCK_LENGTH);
+                data = data.substring(Math.min(data.length(), BLOCK_LENGTH));
             }
         }
-    }
-
-    private void storeSingle(Block singleIndirectLink, String data) {
     }
 
     protected void storeDouble(String data) {
         if (data.length() > doubleSizeMax())
             throw new FileTooBig();
 
-        int z = Block.BLOCK_LENGTH;
-        int q = singleSizeMax() - z;
+        int BLOCK_LENGTH = Block.BLOCK_LENGTH;
+        int SINGLE_SIZE  = LINKS_PER_BLOCK * BLOCK_LENGTH;
         int size = data.length();
 
-        storeSingle(data.substring(0, z+q));
+        storeSingle(data);
 
         doubleIndirectLink = Globals.fs.allocateDoubleIndirect();
 
-        Block b1 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(0));
-        Block b2 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(1));
-        Block b3 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(2));
-        Block b4 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(3));
-
-        if (size >= z+1*q) storeSingle(b1, data.substring(z+1*q, Math.min(z+2*q, size)));
-        if (size >= z+2*q) storeSingle(b2, data.substring(z+2*q, Math.min(z+3*q, size)));
-        if (size >= z+3*q) storeSingle(b3, data.substring(z+3*q, Math.min(z+4*q, size)));
-        if (size >= z+4*q) storeSingle(b4, data.substring(z+4*q, Math.min(z+5*q, size)));
+        for (int i = 0; i < LINKS_PER_BLOCK; i++) {
+            Block single = doubleIndirectLink.getBlock(i);
+            for (int j = 0; j < LINKS_PER_BLOCK; j++) {
+                Block direct = single.getBlock(j);
+                direct.store(data.substring(i*BLOCK_LENGTH + j*SINGLE_SIZE));
+            }
+        }
     }
 
     protected int singleSizeMax() {
