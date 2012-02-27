@@ -9,8 +9,4 @@ public class InodeList extends ArrayList<Inode> {
             add(inode);
         }
     }
-
-    public String toString() {
-        return "InodeList:\tsize=" + size() + "\tlist=" + super.toString();
-    }
 }

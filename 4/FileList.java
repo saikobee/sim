@@ -10,14 +10,4 @@ public class FileList extends ArrayList<File> {
 
         return null;
     }
-
-    public String toString() {
-        StringBuffer result = new StringBuffer();
-
-        result.append("FileList:");
-        result.append("\tsize=" + size());
-        result.append("\tlist=" + super.toString());
-
-        return "" + result;
-    }
 }

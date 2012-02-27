@@ -50,10 +50,10 @@ public class FileSystem {
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        result.append("FS:");
-        result.append("\nFree inodes: " + inodeFreeList);
-        result.append("\nFree blocks: " + blockFreeList);
-        result.append("\nFiles: " + fileList);
+        result.append("FS:\n");
+        result.append("Free inodes:" + inodeFreeList + "\n");
+        result.append("Free blocks:" + blockFreeList + "\n");
+        result.append("Files:"       + fileList      + "\n");
 
         return "" + result;
     }

@@ -44,9 +44,10 @@ public class Block extends Sector {
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        result.append("Block:");
-        result.append("\tnumber=" + getNumber());
-        result.append("\tbytes="  + loadDirect());
+        result.append("\nBlock:\n");
+        result.append("\tnumber=" + getNumber()  + "\n");
+        result.append("\tbytes="  + loadDirect() + "\n");
+        result.append("\n");
 
         return "" + result;
     }

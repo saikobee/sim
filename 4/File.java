@@ -13,9 +13,9 @@ public class File {
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        result.append("File:");
-        result.append("\tname="  + name);
-        result.append("\tinode=" + inode);
+        result.append("\nFile:\n");
+        result.append("\tname="  + name  + "\n");
+        result.append("\tinode=" + inode + "\n");
 
         return "" + result;
     }

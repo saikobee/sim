@@ -66,12 +66,12 @@ public class Inode extends Sector {
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        result.append("Inode:");
-        result.append("\tnumber="      + number);
-        result.append("\tsize="        + size);
-        result.append("\n\tdirect="    + directLink);
-        result.append("\n\tindirect="  + singleIndirectLink);
-        result.append("\n\tindirect²=" + doubleIndirectLink);
+        result.append("\nInode:\n");
+        result.append("\tnumber="    + number + "\n");
+        result.append("\tsize="      + size + "\n");
+        result.append("\tdirect="    + directLink);
+        result.append("\tindirect="  + singleIndirectLink);
+        result.append("\tindirect²=" + doubleIndirectLink);
 
         return "" + result;
     }

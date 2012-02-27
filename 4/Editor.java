@@ -4,9 +4,10 @@ import java.awt.event.*;
 import javax.swing.UIManager.*;
 
 public class Editor extends JFrame {
-    private JPanel     toolbar;
-    private JTextArea  text;
-    private JTextField name;
+    private JPanel      toolbar;
+    private JTextArea   text;
+    private JTextField  name;
+    private JScrollPane scroll;
 
     private JButton saveButton;
     private JButton loadButton;
@@ -21,9 +22,9 @@ public class Editor extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        text = new JTextArea();
-
-        name = new JTextField();
+        text   = new JTextArea();
+        name   = new JTextField();
+        scroll = new JScrollPane(text);
 
         toolbar = new JPanel();
         saveButton = new SaveButton();
@@ -39,7 +40,7 @@ public class Editor extends JFrame {
         toolbar.add(quitButton);
 
         add(toolbar, BorderLayout.NORTH);
-        add(text,    BorderLayout.CENTER);
+        add(scroll,  BorderLayout.CENTER);
         add(name,    BorderLayout.SOUTH);
 
         setSize(400, 400);
@@ -82,6 +83,7 @@ public class Editor extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Save");
             Globals.fs.save(getFilename(), getEditorText());
+            System.out.println(Globals.fs);
         }
     }
 
@@ -95,6 +97,7 @@ public class Editor extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Load");
             setEditorText(Globals.fs.load(getFilename()));
+            System.out.println(Globals.fs);
         }
     }
 
