@@ -60,32 +60,52 @@ public class Inode extends Sector {
     }
 
     protected void storeSingle(String data) {
-        int z = Block.BLOCK_LENGTH;
-
         if (data.length() > singleSizeMax())
             throw new FileTooBig();
 
         singleIndirectLink = Globals.fs.allocateSingleIndirect();
 
-        Block b1 = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(0));
-        Block b2 = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(1));
-        Block b3 = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(2));
-        Block b4 = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(3));
+        int BLOCK_LENGTH = Block.BLOCK_LENGTH;
+        int size = data.length();
+        storeDirect(data.substring(0, BLOCK_LENGTH));
 
-        storeDirect(data.substring(0, z));
+        for (int i = 1; i <= LINKS_PER_BLOCK; i++) {
+            Block b = (Block)Globals.fs.getSector(singleIndirectLink.getBlockNumber(i - 1));
 
-        if (size >= 1*z) b1.store(data.substring(1*z, Math.min(2*z, size)));
-        if (size >= 2*z) b2.store(data.substring(2*z, Math.min(3*z, size)));
-        if (size >= 3*z) b3.store(data.substring(3*z, Math.min(4*z, size)));
-        if (size >= 4*z) b4.store(data.substring(4*z, Math.min(5*z, size)));
+            if (size >= i*BLOCK_LENGTH) {
+                b.store(data.substring(i*BLOCK_LENGTH, Math.min((i+1)*BLOCK_LENGTH, size)));
+            }
+        }
+    }
+
+    private void storeSingle(Block singleIndirectLink, String data) {
     }
 
     protected void storeDouble(String data) {
-        throw new UnsupportedOperationException();
+        if (data.length() > doubleSizeMax())
+            throw new FileTooBig();
+
+        int z = Block.BLOCK_LENGTH;
+        int q = singleSizeMax() - z;
+        int size = data.length();
+
+        storeSingle(data.substring(0, z+q));
+
+        doubleIndirectLink = Globals.fs.allocateDoubleIndirect();
+
+        Block b1 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(0));
+        Block b2 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(1));
+        Block b3 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(2));
+        Block b4 = (Block)Globals.fs.getSector(doubleIndirectLink.getBlockNumber(3));
+
+        if (size >= z+1*q) storeSingle(b1, data.substring(z+1*q, Math.min(z+2*q, size)));
+        if (size >= z+2*q) storeSingle(b2, data.substring(z+2*q, Math.min(z+3*q, size)));
+        if (size >= z+3*q) storeSingle(b3, data.substring(z+3*q, Math.min(z+4*q, size)));
+        if (size >= z+4*q) storeSingle(b4, data.substring(z+4*q, Math.min(z+5*q, size)));
     }
 
     protected int singleSizeMax() {
-        return Block.BLOCK_LENGTH + LINKS_PER_BLOCK + Block.BLOCK_LENGTH;
+        return Block.BLOCK_LENGTH + LINKS_PER_BLOCK * Block.BLOCK_LENGTH;
     }
 
     protected int doubleSizeMax() {
@@ -96,13 +116,14 @@ public class Inode extends Sector {
         StringBuffer result = new StringBuffer();
 
         Block one = singleIndirectLink;
+        Block two = doubleIndirectLink;
 
         result.append("\nInode:\n");
         result.append("\tnumber="    + number + "\n");
         result.append("\tsize="      + size + "\n");
         result.append("\tdirect="    + directLink);
         result.append("\tindirect="  + (one == null? null: one.getBlocks()));
-        result.append("\tindirect²=" + doubleIndirectLink);
+        result.append("\tindirect²=" + (two == null? null: two.getBlocks()));
 
         return "" + result;
     }

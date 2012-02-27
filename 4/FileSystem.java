@@ -1,6 +1,6 @@
 public class FileSystem {
     // NOTE: NUM_SECTORS may not exceed 2^16 under current implementation.
-    protected final int NUM_SECTORS = 16;
+    protected final int NUM_SECTORS = 1024;
     protected final int NUM_INODES  = 4;
     protected final int NUM_BLOCKS  = NUM_SECTORS - NUM_INODES;
 
@@ -41,6 +41,16 @@ public class FileSystem {
 
         for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
             block.setBlockNumber(i, allocateBlock().getNumber());
+        }
+
+        return block;
+    }
+
+    protected Block allocateDoubleIndirect() {
+        Block block = allocateSingleIndirect();
+
+        for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
+            block.setBlockNumber(i, allocateSingleIndirect().getNumber());
         }
 
         return block;

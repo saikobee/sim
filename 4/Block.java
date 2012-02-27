@@ -73,7 +73,15 @@ public class Block extends Sector {
     }
 
     public String loadDoubleIndirect() {
-        return "<<DOUBLE INDIRECT>>";
+        StringBuffer result = new StringBuffer();
+
+        for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
+            Block block = (Block)Globals.fs.getSector(getBlockNumber(i));
+
+            result.append(block.loadSingleIndirect());
+        }
+
+        return "" + result;
     }
 
     public String toString() {
