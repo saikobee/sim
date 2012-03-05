@@ -10,19 +10,23 @@ public class Inode extends Sector {
         super(number);
     }
 
-    public void store(String data) {
+    public void store(StringBuffer buf) {
         super.store();
 
-        size = data.length();
+        size = buf.length();
 
         int x = Block.BLOCK_LENGTH;
         int y = singleSizeMax();
         int z = doubleSizeMax();
 
-        if      (size <= x) storeDirect(data);
-        else if (size <= y) storeSingle(data);
-        else if (size <= z) storeDouble(data);
+        if      (size <= x) storeDirect(buf);
+        else if (size <= y) storeSingle(buf);
+        else if (size <= z) storeDouble(buf);
         else throw new FileTooBig();
+    }
+
+    public void store(String data) {
+        store(new StringBuffer(data));
     }
 
     public String load() {
@@ -52,53 +56,68 @@ public class Inode extends Sector {
         doubleIndirectLink = null;
     }
 
-    protected void storeDirect(String data) {
+    private void consume(StringBuffer buf) {
+        final int BLOCK_LENGTH = Block.BLOCK_LENGTH;
+        final int length = Math.min(buf.length(), BLOCK_LENGTH);
+        buf.delete(0, length);
+    }
+
+    protected void storeDirect(StringBuffer buf) {
         if (directLink == null)
             directLink = Globals.fs.allocateBlock();
 
-        directLink.store(data);
+        directLink.store(buf);
+        consume(buf);
     }
 
-    protected void storeSingle(String data) {
+    protected void storeSingle(StringBuffer data) {
         singleIndirectLink = Globals.fs.allocateBlock();
 
-        final int BLOCK_LENGTH = Block.BLOCK_LENGTH;
         storeDirect(data);
 
-        data = data.substring(Math.min(data.length(), BLOCK_LENGTH));
-
         for (int i = 0; i < LINKS_PER_BLOCK; i++) {
-            Block b = Globals.fs.allocateBlock();
-            singleIndirectLink.setBlock(i, b);
-
             if (data.length() > 0) {
+                Block b = Globals.fs.allocateBlock();
+                singleIndirectLink.setBlock(i, b);
+
                 b.store(data);
-                data = data.substring(Math.min(data.length(), BLOCK_LENGTH));
+                consume(data);
+            }
+            else {
+                singleIndirectLink.setBlock(i, null);
             }
         }
     }
 
-    protected void storeDouble(String data) {
-        int BLOCK_LENGTH = Block.BLOCK_LENGTH;
-        int SINGLE_SIZE  = LINKS_PER_BLOCK * BLOCK_LENGTH;
-        int size = data.length();
-
+    protected void storeDouble(StringBuffer data) {
         storeSingle(data);
-        data = data.substring(Math.min(singleSizeMax(), data.length()));
+
+        if (data.length() <= 0)
+            return;
 
         doubleIndirectLink = Globals.fs.allocateBlock();
 
         for (int i = 0; i < LINKS_PER_BLOCK; i++) {
-            Block single = Globals.fs.allocateBlock();
-            doubleIndirectLink.setBlock(i, single);
-            for (int j = 0; j < LINKS_PER_BLOCK; j++) {
-                Block direct = Globals.fs.allocateBlock();
-                single.setBlock(j, direct);
+            Block single = null;
+            if (data.length() > 0) {
+                single = Globals.fs.allocateBlock();
+                doubleIndirectLink.setBlock(i, single);
 
-                if (data.length() > 0) {
-                    direct.store(data);
-                    data = data.substring(Math.min(BLOCK_LENGTH, data.length()));
+                for (int j = 0; j < LINKS_PER_BLOCK; j++) {
+                    if (data.length() > 0) {
+                        Block direct = Globals.fs.allocateBlock();
+                        single.setBlock(j, direct);
+
+                        direct.store(data);
+                        consume(data);
+                    }
+                    else if (single != null) {
+                        single.setBlock(j, null);
+                    }
                 }
+            }
+            else {
+                doubleIndirectLink.setBlock(i, null);
             }
         }
     }

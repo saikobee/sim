@@ -25,6 +25,10 @@ public class Block extends Sector implements Comparable<Block> {
         Debug.printf("\"\n");
     }
 
+    public void store(StringBuffer buf) {
+        store("" + buf);
+    }
+
     public int getBlockNumber(int i) {
         return (bytes[i + i] << 8) | bytes[i + i + 1];
     }
@@ -35,11 +39,12 @@ public class Block extends Sector implements Comparable<Block> {
     }
 
     public Block getBlock(int i) {
-        return (Block)Globals.fs.getSector(getBlockNumber(i));
+        int n = getBlockNumber(i);
+        return n == 0? null: (Block)Globals.fs.getSector(n);
     }
 
     public void setBlock(int i, Block b) {
-        setBlockNumber(i, b.getNumber());
+        setBlockNumber(i, b == null? 0: b.getNumber());
     }
 
     public List<Block> getBlocks() {
@@ -48,7 +53,11 @@ public class Block extends Sector implements Comparable<Block> {
         result.add(this);
 
         for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
-            result.add(getBlock(i));
+            Block b = getBlock(i);
+
+            if (b != null) {
+                result.add(b);
+            }
         }
 
         return result;
@@ -63,7 +72,11 @@ public class Block extends Sector implements Comparable<Block> {
         for (Block link: links) {
             //result.add(link);
             for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
-                result.add(link.getBlock(i));
+                Block b = link.getBlock(i);
+
+                if (b != null) {
+                    result.add(b);
+                }
             }
         }
 
@@ -87,9 +100,10 @@ public class Block extends Sector implements Comparable<Block> {
         StringBuffer result = new StringBuffer();
 
         for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
-            Block block = (Block)Globals.fs.getSector(getBlockNumber(i));
+            Block block = getBlock(i);
 
-            result.append(block.loadDirect());
+            if (block != null)
+                result.append(block.loadDirect());
         }
 
         return "" + result;
@@ -99,9 +113,10 @@ public class Block extends Sector implements Comparable<Block> {
         StringBuffer result = new StringBuffer();
 
         for (int i = 0; i < Inode.LINKS_PER_BLOCK; i++) {
-            Block block = (Block)Globals.fs.getSector(getBlockNumber(i));
+            Block block = getBlock(i);
 
-            result.append(block.loadSingleIndirect());
+            if (block != null)
+                result.append(block.loadSingleIndirect());
         }
 
         return "" + result;

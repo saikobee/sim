@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class FileSystem {
     // NOTE: NUM_SECTORS may not exceed 2^16 under current implementation.
     protected final int NUM_SECTORS = 64;
@@ -11,7 +13,7 @@ public class FileSystem {
 
     public FileSystem() {
         fileList      = new FileList();
-        sectors       = new Sector[NUM_SECTORS];
+        sectors       = new Sector[NUM_SECTORS + 1]; // 1-based indexing
         inodeFreeList = new InodeList(sectors, NUM_INODES);
         blockFreeList = new BlockList(sectors, NUM_INODES, NUM_SECTORS);
     }
@@ -47,8 +49,10 @@ public class FileSystem {
 
     protected void delete(String name) {
         File  file  = fileList.removeByName(name);
-        Inode inode = file.getInode();
-        delete(inode);
+        if (file != null) {
+            Inode inode = file.getInode();
+            delete(inode);
+        }
     }
 
     private void delete(File file) {
@@ -79,14 +83,15 @@ public class FileSystem {
     }
 
     protected void nuke() {
-        for (File file: fileList) {
-            delete(file);
+        for (File file: new ArrayList<File>(fileList)) {
+            delete(file.getName());
         }
 
         fileList.clear();
     }
 
     protected void save(String name, String contents) {
+        delete(name);
         Inode inode = allocateInode();
         inode.store(contents);
         fileList.add(new File(name, inode));

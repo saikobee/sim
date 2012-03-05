@@ -3,7 +3,7 @@ import java.util.Collections;
 
 public class BlockList extends ArrayList<Block> {
     public BlockList(Sector[] theSectors, int nInode, int nBlocks) {
-        for (int i = nInode; i < nBlocks; i++) {
+        for (int i = 1 + nInode; i <= nBlocks; i++) {
             Block block = new Block(i);
 
             theSectors[i] = block;
