@@ -19,21 +19,27 @@ public class Loader {
             String cmd  = words[0];
             String disk = words[1];
             String time = words[2];
-            String text = words[3];
+            String file = words[3];
 
             int diskno = new Integer(disk);
 
-            String mytime = timeLongToString(timeStringToLong(time));
+            long   mylong = timeStringToLong(time);
+            String mytime = timeLongToString(mylong);
+
+            if (cmd.equals("save")) {
+                String text = words[4];
+                Event.add(new SaveEvent(mylong, file, text));
+            }
 
             Debug.printf(
                 "time=%s disk=%01d cmd=%-6s text=%s\n",
                 //"time=%s\nTIME=%s\n",
-                mytime, diskno, cmd, text
+                mytime, diskno, cmd, file
             );
         }
     }
 
-    public long timeStringToLong(String timeStr) {
+    public static long timeStringToLong(String timeStr) {
         String[] timeChunks = timeStr.split(":");
 
         int hours = new Integer(timeChunks[0]);
@@ -50,7 +56,7 @@ public class Loader {
         return time;
     }
 
-    public String timeLongToString(long time) {
+    public static String timeLongToString(long time) {
         long hours;
         long mins;
         long secs;
