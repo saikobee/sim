@@ -11,6 +11,7 @@ public class SaveEvent extends Event {
 
     public void simulate() {
         Debug.printf("%s\n", this);
+        Globals.fs.save(file, text);
     }
 
     public String toString() {

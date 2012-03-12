@@ -11,8 +11,13 @@ public class Inode extends Sector {
     }
 
     public void store(StringBuffer buf) {
-        super.store();
+        if (buf.length() > doubleSizeMax())
+            throw new FileTooBig();
 
+        simulateStore(buf);
+    }
+
+    public void actuallyDoTheStore(StringBuffer buf) {
         size = buf.length();
 
         int x = Block.BLOCK_LENGTH;
@@ -29,8 +34,11 @@ public class Inode extends Sector {
         store(new StringBuffer(data));
     }
 
+    public void simulateStore(StringBuffer buf) {
+        Event.inodeSimulateStore(this, buf);
+    }
+
     public String load() {
-        super.doLoad();
         StringBuffer result = new StringBuffer();
 
         result.append(loadDirect());

@@ -5,9 +5,6 @@ public abstract class Sector {
         this.number = number;
     }
 
-    public void doLoad() {}
-    public void store() {}
-
     public String toString() {
         return "Sector";
     }

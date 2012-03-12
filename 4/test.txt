@@ -1,8 +1,9 @@
-save 0 00:01:00:000 foo 123456789
-load 0 00:03:00:000 foo
-save 0 00:01:00:001 foo 123456789
-load 0 00:04:00:03 bar
-load 0 00:04:00:02 foo
-load 0 00:04:00:01 foobar
-save 0 00:01:00:000 bar abc!
-save 0 00:01:00:022 foobar dddddddd123456789012345678901234567890**extraextra
+save 0 00:00:35:000 foo 123
+#save 0 00:01:00:000 foo 123456789
+#load 0 00:03:00:000 foo
+#save 0 00:01:00:001 foo 123456789
+#load 0 00:04:00:03 bar
+#load 0 00:04:00:02 foo
+#load 0 00:04:00:01 foobar
+#save 0 00:01:00:000 bar abc!
+#save 0 00:01:00:022 foobar dddddddd123456789012345678901234567890**extraextra

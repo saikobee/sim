@@ -9,9 +9,15 @@ public class Block extends Sector implements Comparable<Block> {
         bytes = new byte[BLOCK_LENGTH];
     }
 
-    public void store(String s) {
-        super.store();
+    public void store(String data) {
+        simulateStore(data);
+    }
 
+    public void simulateStore(String data) {
+        Event.blockSimulateStore(this, data);
+    }
+
+    public void actuallyDoTheStore(String s) {
         int len = Math.min(s.length(), BLOCK_LENGTH);
         for (int i = 0; i < len; i++) {
             Debug.printf("Storing '%c'\n", s.charAt(i));
@@ -84,8 +90,6 @@ public class Block extends Sector implements Comparable<Block> {
     }
 
     public String loadDirect() {
-        super.doLoad();
-
         StringBuffer result = new StringBuffer();
 
         int i = 0;

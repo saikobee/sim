@@ -14,7 +14,12 @@ public class Loader {
 
     public void parse(Scanner in) {
         while (in.hasNextLine()) {
-            String[] words = in.nextLine().split("\\s+");
+            String line = in.nextLine();
+
+            if (line.charAt(0) == '#')
+                continue; // skip comments
+
+            String[] words = line.split("\\s+");
 
             String cmd  = words[0];
             String disk = words[1];
