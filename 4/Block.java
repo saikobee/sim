@@ -20,15 +20,15 @@ public class Block extends Sector implements Comparable<Block> {
     public void actuallyDoTheStore(String s) {
         int len = Math.min(s.length(), BLOCK_LENGTH);
         for (int i = 0; i < len; i++) {
-            Debug.printf("Storing '%c'\n", s.charAt(i));
+            //Debug.printf("Storing '%c'\n", s.charAt(i));
             bytes[i] = (byte) s.charAt(i);
         }
 
-        Debug.printf("Stored: \"");
-        for (byte b: bytes) {
-            Debug.printf("%c", (char)b);
-        }
-        Debug.printf("\"\n");
+        //Debug.printf("Stored: \"");
+        //for (byte b: bytes) {
+        //    Debug.printf("%c", (char)b);
+        //}
+        //Debug.printf("\"\n");
     }
 
     public void store(StringBuffer buf) {

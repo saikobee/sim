@@ -74,7 +74,8 @@ public class Inode extends Sector {
         if (directLink == null)
             directLink = Globals.fs.allocateBlock();
 
-        directLink.store(buf);
+        //directLink.store(buf);
+        Event.blockSimulateStore(directLink, buf);
         consume(buf);
     }
 
@@ -83,16 +84,28 @@ public class Inode extends Sector {
 
         storeDirect(data);
 
+        StringBuffer copy = new StringBuffer(data.toString());
+        Block[] linkers = new Block[LINKS_PER_BLOCK];
         for (int i = 0; i < LINKS_PER_BLOCK; i++) {
-            if (data.length() > 0) {
+            if (copy.length() > 0) {
                 Block b = Globals.fs.allocateBlock();
-                singleIndirectLink.setBlock(i, b);
-
-                b.store(data);
-                consume(data);
+                linkers[i] = b;
+                consume(copy);
             }
             else {
-                singleIndirectLink.setBlock(i, null);
+                linkers[i] = null;
+            }
+        }
+
+        Event.blockSimulateStore(singleIndirectLink, linkers);
+
+        for (int i = 0; i < LINKS_PER_BLOCK; i++) {
+            if (data.length() > 0) {
+                if (linkers[i] != null) {
+                    Debug.printf("??? THIS IS THE DATA :| %s\n", data);
+                    Event.blockSimulateStore(linkers[i], data);
+                    consume(data);
+                }
             }
         }
     }
