@@ -80,9 +80,9 @@ public class Inode extends Sector {
     }
 
     protected void storeSingle(StringBuffer data) {
-        singleIndirectLink = Globals.fs.allocateBlock();
-
         storeDirect(data);
+
+        singleIndirectLink = Globals.fs.allocateBlock();
 
         StringBuffer copy = new StringBuffer(data.toString());
         Block[] linkers = new Block[LINKS_PER_BLOCK];
@@ -117,6 +117,8 @@ public class Inode extends Sector {
             return;
 
         doubleIndirectLink = Globals.fs.allocateBlock();
+
+        StringBuffer copy;
 
         for (int i = 0; i < LINKS_PER_BLOCK; i++) {
             Block single = null;

@@ -11,6 +11,8 @@ public abstract class Event implements Comparable<Event> {
         q.add(e);
     }
 
+    private static int curID = 0;
+
     public static boolean isEmpty() { return q.isEmpty(); }
     public static int     size()    { return q.size();    }
 
@@ -30,12 +32,17 @@ public abstract class Event implements Comparable<Event> {
 
     abstract public void simulate();
 
+    private int id;
+
     public Event(long time) {
         this.time = time;
+        id = curID++;
     }
 
     public int compareTo(Event that) {
-        return (int)(this.time - that.time);
+        return (int)((this.time == that.time)
+            ? this.id   - that.id
+            : this.time - that.time);
     }
 
     public static void inodeSimulateStore(Inode inode, StringBuffer buf) {
