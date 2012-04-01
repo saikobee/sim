@@ -43,12 +43,8 @@ public class PrisFrame extends JFrame {
     void spin() {
         while (true) {
             if (running || step) {
-                if (step) {
+                if (step)
                     step = false;
-                }
-                if (Board.SIZE != Params.size) { // user changed size
-                    theBoard = new Board(this);
-                }
                 count++;
                 theBoard.update();
                 repaint();
@@ -70,7 +66,12 @@ public class PrisFrame extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        theBoard = new Board(this);
+        int w = 600;
+        int h = 600;
+        int size = 120;
+        int sqWidth = Math.min(w, h) / size;
+
+        theBoard = new Board(this, w, h, sqWidth, size);
         add(theBoard);
 
         pack();

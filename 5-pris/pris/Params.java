@@ -6,7 +6,6 @@ package pris;
  */
 
 public class Params {
-
         static boolean BROKEN=false;
         static int delay=100;
         static int size=101;
@@ -15,6 +14,4 @@ public class Params {
         static int ddPayoff=1;
         static int rounds=1;
         static int percentCoop=1;
-
-
 }

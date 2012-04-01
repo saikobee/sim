@@ -12,7 +12,7 @@ import javax.swing.*;
  * @author levenick
  */
 public class Board extends JPanel {
-    public static int SIZE = 10;
+    private int SIZE;
 
     public static final int COOP   = 1;
     public static final int DEFECT = 2;
@@ -20,25 +20,28 @@ public class Board extends JPanel {
 
     private int sqWidth;
 
-    static final Color COOP_COLOR   = Util.colorFromHex("#73d216");
-    static final Color DC_COLOR     = Util.colorFromHex("#3465a4");
-    static final Color DEFECT_COLOR = Util.colorFromHex("#cc0000");
-    static final Color CD_COLOR     = Util.colorFromHex("#eeeeec");
-    static final Color TIT_COLOR    = Util.colorFromHex("#75507b");
+    static final Color COOP_COLOR   = Util.colorFromHex("#4b55a3");
+    static final Color DC_COLOR     = Util.colorFromHex("#a34b81");
+    static final Color DEFECT_COLOR = Util.colorFromHex("#a3994b");
+    static final Color CD_COLOR     = Util.colorFromHex("#4ba36d");
+    static final Color TIT_COLOR    = Util.colorFromHex("#ffffff");
 
     Strategy[][] strats;
 
-    public Board(PrisFrame f) {
-        SIZE = Params.size;
-        int w = 600;
-        int h = 600;
+    public Board(PrisFrame f, int w, int h, int sqWidth, int size) {
         setPreferredSize(new Dimension(w, h));
-        sqWidth = w/SIZE;
+        this.sqWidth = sqWidth;
+        SIZE = size;
         strats = new Strategy[SIZE][SIZE];
         init();
     }
 
     public void paint(Graphics g) {
+        // No idea why this can be null,
+        // but it's getting passed in from elsewhere...
+        if (g == null)
+            return;
+
         int w = getWidth();
         int h = getHeight();
         for (int row = 0; row < SIZE; row++) {
