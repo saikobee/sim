@@ -6,12 +6,13 @@
 package pris;
 
 import java.awt.Graphics;
+import javax.swing.*;
 
 /**
  *
  * @author levenick
  */
-public class PrisFrame extends javax.swing.JFrame {
+public class PrisFrame extends JFrame {
 
     boolean running, step;
     int count;
@@ -25,8 +26,7 @@ public class PrisFrame extends javax.swing.JFrame {
     /** Creates new form PrisFrame */
     public PrisFrame() {
         initComponents();
-        theBoard = new Board(this);
-        setSize(700, 700);
+        setResizable(false);
         setVisible(true);
         spin();
     }
@@ -55,11 +55,7 @@ public class PrisFrame extends javax.swing.JFrame {
 
     void delay() {
         try { Thread.sleep(Params.delay); }
-        catch (Exception e) { }
-    }
-
-    public void paint(Graphics g) {
-        theBoard.paint(g);
+        catch (Exception e) {}
     }
 
     /** This method is called from within the constructor to
@@ -68,18 +64,10 @@ public class PrisFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        theBoard = new Board(this);
+        add(theBoard);
 
         pack();
     }

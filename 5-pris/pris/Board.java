@@ -4,20 +4,21 @@
  */
 package pris;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
  * @author levenick
  */
-public class Board {
-    PrisFrame theFrame;
+public class Board extends JPanel {
     public static int SIZE = 10;
 
     public static final int COOP   = 1;
     public static final int DEFECT = 2;
     public static final int TIT    = 3;
+
+    private int sqWidth;
 
     static final Color COOP_COLOR   = Color.green;
     static final Color DC_COLOR     = Color.blue;
@@ -28,10 +29,24 @@ public class Board {
     Strategy[][] strats;
 
     public Board(PrisFrame f) {
-        theFrame = f;
         SIZE = Params.size;
+        int w = 600;
+        int h = 600;
+        setPreferredSize(new Dimension(w, h));
+        sqWidth = w/SIZE;
         strats = new Strategy[SIZE][SIZE];
         init();
+    }
+
+    public void paint(Graphics g) {
+        int w = getWidth();
+        int h = getHeight();
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                g.setColor(appropColor(strats[row][col].id(), strats[row][col].getPrevID()));
+                g.fillRect(col * sqWidth, row * sqWidth, sqWidth, sqWidth);
+            }
+        }
     }
 
     void init() {
@@ -160,20 +175,6 @@ public class Board {
             return SIZE + x;
         }
         return x;
-    }
-
-    public void paint(Graphics g) {
-        int left = 10;
-        int top = 30;
-        int width = theFrame.getWidth() - left;
-        int ht = theFrame.getHeight() - top - 5;
-        int sqWidth = Math.min(width, ht) / SIZE;
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                g.setColor(appropColor(strats[row][col].id(), strats[row][col].getPrevID()));
-                g.fillRect(left + col * sqWidth, top + row * sqWidth, sqWidth, sqWidth);
-            }
-        }
     }
 
     String appropID(int id) {
