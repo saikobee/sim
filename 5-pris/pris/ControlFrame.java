@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class ControlFrame extends JFrame {
-
     PrisFrame thePrisFrame;
 
     public ControlFrame(PrisFrame f) {
@@ -50,6 +49,7 @@ public class ControlFrame extends JFrame {
     private void initComponents() {
 
         goStopButton = new JButton();
+        restartButton = new JButton();
         delaySlider = new JSlider();
         delayTF = new JTextField();
         sizeTF = new JTextField();
@@ -78,10 +78,17 @@ public class ControlFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new GridLayout(0, 3));
 
-        goStopButton.setText("go");
+        goStopButton.setText("Go");
         goStopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 goStopButtonActionPerformed(evt);
+            }
+        });
+
+        restartButton.setText("Restart");
+        restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                restartButtonActionPerformed(evt);
             }
         });
 
@@ -149,10 +156,10 @@ public class ControlFrame extends JFrame {
 
         jLabel1.setText("CC");
         jLabel2.setText("DC");
-        jLabel3.setText("delay");
-        jLabel4.setText("size");
+        jLabel3.setText("Delay");
+        jLabel4.setText("Size");
 
-        stepButton.setText("step");
+        stepButton.setText("Step");
         stepButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 stepButtonActionPerformed(evt);
@@ -210,7 +217,7 @@ public class ControlFrame extends JFrame {
             }
         });
 
-        jLabel7.setText("%coop");
+        jLabel7.setText("%Coop");
         jLabel8.setText("0");
         jLabel9.setText("100");
 
@@ -244,6 +251,7 @@ public class ControlFrame extends JFrame {
 
         add(stepButton);
         add(goStopButton);
+        add(restartButton);
         //add(jLabel8); // 0
         //add(jLabel9); // 100
 
@@ -253,10 +261,15 @@ public class ControlFrame extends JFrame {
     private void goStopButtonActionPerformed(ActionEvent evt) {
         thePrisFrame.toggleRunning();
         if (thePrisFrame.running) {
-            goStopButton.setText("stop");
+            goStopButton.setText("Stop");
         } else {
-            goStopButton.setText("go");
+            goStopButton.setText("Go");
         }
+    }
+
+    private void restartButtonActionPerformed(ActionEvent evt) {
+        thePrisFrame.init();
+        stepButtonActionPerformed(null);
     }
 
     private void delaySliderStateChanged(ChangeEvent evt) {
@@ -296,13 +309,12 @@ public class ControlFrame extends JFrame {
     }
 
     private void stepButtonActionPerformed(ActionEvent evt) {
-        goStopButton.setText("go");
+        goStopButton.setText("Go");
         thePrisFrame.step();
-
     }
 
     private void ddSliderStateChanged(ChangeEvent evt) {
-                update();
+        update();
     }
 
     private void ddTFActionPerformed(ActionEvent evt) {
@@ -350,6 +362,7 @@ public class ControlFrame extends JFrame {
     private JTextField delayTF;
     private JButton goStopButton;
     private JButton stepButton;
+    private JButton restartButton;
     private JTextField percentTF;
     private JTextField roundsTF;
     private JTextField sizeTF;

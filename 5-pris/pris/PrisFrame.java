@@ -36,6 +36,10 @@ public class PrisFrame extends JFrame {
         step = true;
     }
 
+    void init() {
+        theBoard.init();
+    }
+
     void spin() {
         while (true) {
             if (running || step) {
