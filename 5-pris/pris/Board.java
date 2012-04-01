@@ -12,17 +12,19 @@ import java.awt.Graphics;
  * @author levenick
  */
 public class Board {
-
     PrisFrame theFrame;
     public static int SIZE = 10;
-    public static final int COOP = 1;
+
+    public static final int COOP   = 1;
     public static final int DEFECT = 2;
-    public static final int TIT = 3;
-    static final Color COOP_COLOR = Color.green;
-    static final Color DC_COLOR = Color.blue;
+    public static final int TIT    = 3;
+
+    static final Color COOP_COLOR   = Color.green;
+    static final Color DC_COLOR     = Color.blue;
     static final Color DEFECT_COLOR = Color.red;
-    static final Color CD_COLOR = Color.white;
-    static final Color TIT_COLOR = new Color(200, 100, 200);
+    static final Color CD_COLOR     = Color.white;
+    static final Color TIT_COLOR    = new Color(200, 100, 200);
+
     Strategy[][] strats;
 
     public Board(PrisFrame f) {
@@ -176,53 +178,36 @@ public class Board {
 
     String appropID(int id) {
         switch (id) {
-            case COOP:
-                return "c";
-            case DEFECT:
-                return "d";
-            case TIT:
-                return "t";
-            default:
-                System.out.println("ieeee! bad id! " + id);
-                System.exit(1);
+        case COOP:   return "c";
+        case DEFECT: return "d";
+        case TIT:    return "t";
+        default:
+            System.out.println("ieeee! bad id! " + id);
+            System.exit(1);
         }
         return "x";
     }
 
     Strategy appropNewStrat(int id, int prevID) {
         switch (id) {
-            case COOP:
-                return new Cooperate(prevID);
-            case DEFECT:
-                return new Defect(prevID);
-            case TIT:
-                return new TitForTat(prevID);
-            default:
-                System.out.println("ieeee! bad id! " + id);
-                System.exit(1);
+        case COOP:   return new Cooperate(prevID);
+        case DEFECT: return new Defect(prevID);
+        case TIT:    return new TitForTat(prevID);
+        default:
+            System.out.println("ieeee! bad id! " + id);
+            System.exit(1);
         }
         return null;
     }
 
     Color appropColor(int id, int prevID) {
         switch (id) {
-            case COOP:
-                if (prevID == DEFECT) {
-                    return DC_COLOR;
-                } else {
-                    return COOP_COLOR;
-                }
-            case DEFECT:
-                if (prevID == COOP) {
-                    return CD_COLOR;
-                } else {
-                    return DEFECT_COLOR;
-                }
-            case TIT:
-                return TIT_COLOR;
-            default:
-                System.out.println("ieeee! bad id! " + id);
-                return Color.yellow;
+        case COOP:   return prevID == DEFECT? DC_COLOR: COOP_COLOR;
+        case DEFECT: return prevID == COOP?   CD_COLOR: DEFECT_COLOR;
+        case TIT:    return TIT_COLOR;
+        default:
+            System.out.println("ieeee! bad id! " + id);
+            return Color.yellow;
         }
     }
 }
