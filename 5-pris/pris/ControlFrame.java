@@ -6,8 +6,9 @@ package pris;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
-public class ControlFrame extends javax.swing.JFrame {
+public class ControlFrame extends JFrame {
 
     PrisFrame thePrisFrame;
 
@@ -50,37 +51,35 @@ public class ControlFrame extends javax.swing.JFrame {
         setTF(percentSlider, percentTF);
     }
 
-    //  WARNING: Do NOT modify the Generated Code!
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        goStopButton = new javax.swing.JButton();
-        delaySlider = new javax.swing.JSlider();
-        delayTF = new javax.swing.JTextField();
-        sizeTF = new javax.swing.JTextField();
-        sizeSlider = new javax.swing.JSlider();
-        ccSlider = new javax.swing.JSlider();
-        ccTF = new javax.swing.JTextField();
-        dcSlider = new javax.swing.JSlider();
-        dcTF = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        stepButton = new javax.swing.JButton();
-        ddSlider = new javax.swing.JSlider();
-        ddTF = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        roundsSlider = new javax.swing.JSlider();
-        roundsTF = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        percentSlider = new javax.swing.JSlider();
-        percentTF = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        goStopButton = new JButton();
+        delaySlider = new JSlider();
+        delayTF = new JTextField();
+        sizeTF = new JTextField();
+        sizeSlider = new JSlider();
+        ccSlider = new JSlider();
+        ccTF = new JTextField();
+        dcSlider = new JSlider();
+        dcTF = new JTextField();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        stepButton = new JButton();
+        ddSlider = new JSlider();
+        ddTF = new JTextField();
+        jLabel5 = new JLabel();
+        roundsSlider = new JSlider();
+        roundsTF = new JTextField();
+        jLabel6 = new JLabel();
+        percentSlider = new JSlider();
+        percentTF = new JTextField();
+        jLabel7 = new JLabel();
+        jLabel8 = new JLabel();
+        jLabel9 = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         goStopButton.setText("go");
@@ -97,8 +96,8 @@ public class ControlFrame extends javax.swing.JFrame {
         delaySlider.setSnapToTicks(true);
         delaySlider.setValue(100);
         delaySlider.setAutoscrolls(true);
-        delaySlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        delaySlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 delaySliderStateChanged(evt);
             }
         });
@@ -124,8 +123,8 @@ public class ControlFrame extends javax.swing.JFrame {
         sizeSlider.setMaximum(1000);
         sizeSlider.setMinimum(5);
         sizeSlider.setValue(200);
-        sizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        sizeSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 sizeSliderStateChanged(evt);
             }
         });
@@ -136,8 +135,8 @@ public class ControlFrame extends javax.swing.JFrame {
         ccSlider.setPaintTicks(true);
         ccSlider.setSnapToTicks(true);
         ccSlider.setValue(48);
-        ccSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        ccSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 ccSliderStateChanged(evt);
             }
         });
@@ -156,8 +155,8 @@ public class ControlFrame extends javax.swing.JFrame {
         dcSlider.setPaintTicks(true);
         dcSlider.setSnapToTicks(true);
         dcSlider.setValue(77);
-        dcSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        dcSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 dcSliderStateChanged(evt);
             }
         });
@@ -202,8 +201,8 @@ public class ControlFrame extends javax.swing.JFrame {
         ddSlider.setPaintTicks(true);
         ddSlider.setSnapToTicks(true);
         ddSlider.setValue(0);
-        ddSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        ddSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 ddSliderStateChanged(evt);
             }
         });
@@ -228,8 +227,8 @@ public class ControlFrame extends javax.swing.JFrame {
         roundsSlider.setPaintTicks(true);
         roundsSlider.setSnapToTicks(true);
         roundsSlider.setValue(1);
-        roundsSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        roundsSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 roundsSliderStateChanged(evt);
             }
         });
@@ -249,12 +248,12 @@ public class ControlFrame extends javax.swing.JFrame {
         jLabel6.setBounds(70, 370, 60, 16);
 
         percentSlider.setMajorTickSpacing(10);
-        percentSlider.setOrientation(javax.swing.JSlider.VERTICAL);
+        percentSlider.setOrientation(JSlider.VERTICAL);
         percentSlider.setPaintTicks(true);
         percentSlider.setSnapToTicks(true);
         percentSlider.setValue(100);
-        percentSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        percentSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
                 percentSliderStateChanged(evt);
             }
         });
@@ -282,112 +281,109 @@ public class ControlFrame extends javax.swing.JFrame {
         jLabel9.setBounds(500, 30, 24, 20);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void goStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goStopButtonActionPerformed
+    private void goStopButtonActionPerformed(java.awt.event.ActionEvent evt) {
         thePrisFrame.toggleRunning();
         if (thePrisFrame.running) {
             goStopButton.setText("stop");
         } else {
             goStopButton.setText("go");
         }
-}//GEN-LAST:event_goStopButtonActionPerformed
+    }
 
-    private void delaySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_delaySliderStateChanged
+    private void delaySliderStateChanged(ChangeEvent evt) {
         update();
-    }//GEN-LAST:event_delaySliderStateChanged
+    }
 
-    private void delayTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delayTFActionPerformed
+    private void delayTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(delaySlider, delayTF);
         update();
-    }//GEN-LAST:event_delayTFActionPerformed
+    }
 
-    private void sizeTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeTFActionPerformed
+    private void sizeTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(sizeSlider, sizeTF);
         update();
-    }//GEN-LAST:event_sizeTFActionPerformed
+    }
 
-    private void sizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sizeSliderStateChanged
+    private void sizeSliderStateChanged(ChangeEvent evt) {
         update();
-    }//GEN-LAST:event_sizeSliderStateChanged
+    }
 
-    private void ccSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ccSliderStateChanged
+    private void ccSliderStateChanged(ChangeEvent evt) {
         update();
-    }//GEN-LAST:event_ccSliderStateChanged
+    }
 
-    private void ccTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccTFActionPerformed
+    private void ccTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(ccSlider, ccTF);
         update();
-    }//GEN-LAST:event_ccTFActionPerformed
+    }
 
-    private void dcSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dcSliderStateChanged
+    private void dcSliderStateChanged(ChangeEvent evt) {
         update();
-    }//GEN-LAST:event_dcSliderStateChanged
+    }
 
-    private void dcTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dcTFActionPerformed
+    private void dcTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(dcSlider, dcTF);
         update();
-    }//GEN-LAST:event_dcTFActionPerformed
+    }
 
-    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepButtonActionPerformed
+    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {
         goStopButton.setText("go");
         thePrisFrame.step();
 
-    }//GEN-LAST:event_stepButtonActionPerformed
+    }
 
-    private void ddSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ddSliderStateChanged
+    private void ddSliderStateChanged(ChangeEvent evt) {
                 update();
-    }//GEN-LAST:event_ddSliderStateChanged
+    }
 
-    private void ddTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddTFActionPerformed
+    private void ddTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(ddSlider, ddTF);
         update();
-    }//GEN-LAST:event_ddTFActionPerformed
+    }
 
-    private void roundsSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_roundsSliderStateChanged
+    private void roundsSliderStateChanged(ChangeEvent evt) {
         update();
-    }//GEN-LAST:event_roundsSliderStateChanged
+    }
 
-    private void roundsTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundsTFActionPerformed
+    private void roundsTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(roundsSlider, roundsTF);
         update();
-    }//GEN-LAST:event_roundsTFActionPerformed
+    }
 
-    private void percentSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_percentSliderStateChanged
+    private void percentSliderStateChanged(ChangeEvent evt) {
         update();
-    }//GEN-LAST:event_percentSliderStateChanged
+    }
 
-    private void percentTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentTFActionPerformed
+    private void percentTFActionPerformed(java.awt.event.ActionEvent evt) {
         setSlider(percentSlider, percentTF);
         update();
-    }//GEN-LAST:event_percentTFActionPerformed
+    }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSlider ccSlider;
-    private javax.swing.JTextField ccTF;
-    private javax.swing.JSlider dcSlider;
-    private javax.swing.JTextField dcTF;
-    private javax.swing.JSlider ddSlider;
-    private javax.swing.JTextField ddTF;
-    private javax.swing.JSlider delaySlider;
-    private javax.swing.JTextField delayTF;
-    private javax.swing.JButton goStopButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JSlider percentSlider;
-    private javax.swing.JTextField percentTF;
-    private javax.swing.JSlider roundsSlider;
-    private javax.swing.JTextField roundsTF;
-    private javax.swing.JSlider sizeSlider;
-    private javax.swing.JTextField sizeTF;
-    private javax.swing.JButton stepButton;
-    // End of variables declaration//GEN-END:variables
-} // class ControlFrame
-
+    private JSlider ccSlider;
+    private JSlider dcSlider;
+    private JSlider ddSlider;
+    private JSlider delaySlider;
+    private JSlider roundsSlider;
+    private JSlider sizeSlider;
+    private JSlider percentSlider;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JLabel jLabel5;
+    private JLabel jLabel6;
+    private JLabel jLabel7;
+    private JLabel jLabel8;
+    private JLabel jLabel9;
+    private JTextField ccTF;
+    private JTextField dcTF;
+    private JTextField ddTF;
+    private JTextField delayTF;
+    private JButton goStopButton;
+    private JButton stepButton;
+    private JTextField percentTF;
+    private JTextField roundsTF;
+    private JTextField sizeTF;
+}
