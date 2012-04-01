@@ -16,7 +16,7 @@ public class ControlFrame extends JFrame {
     public ControlFrame(PrisFrame f) {
         thePrisFrame = f;
         initComponents();
-        setSize(500, 500);
+        setSize(600, 300);
         setVisible(true);
         update();
     }
@@ -76,7 +76,7 @@ public class ControlFrame extends JFrame {
         jLabel9 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(0, 2));
+        setLayout(new GridLayout(0, 3));
 
         goStopButton.setText("go");
         goStopButton.addActionListener(new ActionListener() {
@@ -148,11 +148,8 @@ public class ControlFrame extends JFrame {
         });
 
         jLabel1.setText("CC");
-
         jLabel2.setText("DC");
-
         jLabel3.setText("delay");
-
         jLabel4.setText("size");
 
         stepButton.setText("step");
@@ -214,36 +211,41 @@ public class ControlFrame extends JFrame {
         });
 
         jLabel7.setText("%coop");
-
         jLabel8.setText("0");
-
         jLabel9.setText("100");
 
-        add(jLabel5);
-        add(delaySlider);
-        add(goStopButton);
+        add(jLabel3); // delay
         add(delayTF);
+        add(delaySlider);
+
+        add(jLabel4); // size
         add(sizeTF);
         add(sizeSlider);
-        add(ccSlider);
+
+        add(jLabel1); // CC
         add(ccTF);
-        add(dcSlider);
+        add(ccSlider);
+
+        add(jLabel2); // DC
         add(dcTF);
-        add(jLabel1);
-        add(jLabel2);
-        add(jLabel3);
-        add(jLabel4);
-        add(stepButton);
-        add(ddSlider);
+        add(dcSlider);
+
+        add(jLabel5); // DD
         add(ddTF);
-        add(roundsSlider);
+        add(ddSlider);
+
+        add(jLabel6); // rounds
         add(roundsTF);
-        add(jLabel6);
-        add(percentSlider);
+        add(roundsSlider);
+
+        add(jLabel7); // %coop
         add(percentTF);
-        add(jLabel7);
-        add(jLabel8);
-        add(jLabel9);
+        add(percentSlider);
+
+        add(stepButton);
+        add(goStopButton);
+        //add(jLabel8); // 0
+        //add(jLabel9); // 100
 
         pack();
     }
