@@ -84,7 +84,6 @@ public class ControlFrame extends JFrame {
                 goStopButtonActionPerformed(evt);
             }
         });
-        add(goStopButton);
 
         delaySlider.setMaximum(1000);
         delaySlider.setMinorTickSpacing(1);
@@ -96,21 +95,18 @@ public class ControlFrame extends JFrame {
                 delaySliderStateChanged(evt);
             }
         });
-        add(delaySlider);
 
         delayTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 delayTFActionPerformed(evt);
             }
         });
-        add(delayTF);
 
         sizeTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 sizeTFActionPerformed(evt);
             }
         });
-        add(sizeTF);
 
         sizeSlider.setMaximum(1000);
         sizeSlider.setMinimum(5);
@@ -120,7 +116,6 @@ public class ControlFrame extends JFrame {
                 sizeSliderStateChanged(evt);
             }
         });
-        add(sizeSlider);
 
         ccSlider.setMajorTickSpacing(1);
         ccSlider.setSnapToTicks(true);
@@ -130,14 +125,12 @@ public class ControlFrame extends JFrame {
                 ccSliderStateChanged(evt);
             }
         });
-        add(ccSlider);
 
         ccTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 ccTFActionPerformed(evt);
             }
         });
-        add(ccTF);
 
         dcSlider.setMajorTickSpacing(1);
         dcSlider.setSnapToTicks(true);
@@ -147,26 +140,20 @@ public class ControlFrame extends JFrame {
                 dcSliderStateChanged(evt);
             }
         });
-        add(dcSlider);
 
         dcTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dcTFActionPerformed(evt);
             }
         });
-        add(dcTF);
 
         jLabel1.setText("CC");
-        add(jLabel1);
 
         jLabel2.setText("DC");
-        add(jLabel2);
 
         jLabel3.setText("delay");
-        add(jLabel3);
 
         jLabel4.setText("size");
-        add(jLabel4);
 
         stepButton.setText("step");
         stepButton.addActionListener(new ActionListener() {
@@ -174,7 +161,6 @@ public class ControlFrame extends JFrame {
                 stepButtonActionPerformed(evt);
             }
         });
-        add(stepButton);
 
         ddSlider.setMajorTickSpacing(1);
         ddSlider.setMaximum(30);
@@ -185,17 +171,14 @@ public class ControlFrame extends JFrame {
                 ddSliderStateChanged(evt);
             }
         });
-        add(ddSlider);
 
         ddTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 ddTFActionPerformed(evt);
             }
         });
-        add(ddTF);
 
         jLabel5.setText("DD");
-        add(jLabel5);
 
         roundsSlider.setMajorTickSpacing(1);
         roundsSlider.setMaximum(20);
@@ -206,17 +189,14 @@ public class ControlFrame extends JFrame {
                 roundsSliderStateChanged(evt);
             }
         });
-        add(roundsSlider);
 
         roundsTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 roundsTFActionPerformed(evt);
             }
         });
-        add(roundsTF);
 
         jLabel6.setText("Rounds");
-        add(jLabel6);
 
         percentSlider.setMajorTickSpacing(10);
         percentSlider.setSnapToTicks(true);
@@ -226,22 +206,43 @@ public class ControlFrame extends JFrame {
                 percentSliderStateChanged(evt);
             }
         });
-        add(percentSlider);
 
         percentTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 percentTFActionPerformed(evt);
             }
         });
-        add(percentTF);
 
         jLabel7.setText("%coop");
-        add(jLabel7);
 
         jLabel8.setText("0");
-        add(jLabel8);
 
         jLabel9.setText("100");
+
+        add(jLabel5);
+        add(delaySlider);
+        add(goStopButton);
+        add(delayTF);
+        add(sizeTF);
+        add(sizeSlider);
+        add(ccSlider);
+        add(ccTF);
+        add(dcSlider);
+        add(dcTF);
+        add(jLabel1);
+        add(jLabel2);
+        add(jLabel3);
+        add(jLabel4);
+        add(stepButton);
+        add(ddSlider);
+        add(ddTF);
+        add(roundsSlider);
+        add(roundsTF);
+        add(jLabel6);
+        add(percentSlider);
+        add(percentTF);
+        add(jLabel7);
+        add(jLabel8);
         add(jLabel9);
 
         pack();
