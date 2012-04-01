@@ -218,9 +218,9 @@ public class ControlFrame extends JFrame {
         add(delayTF);
         add(delaySlider);
 
-        add(jLabel4); // size
-        add(sizeTF);
-        add(sizeSlider);
+        //add(jLabel4); // size
+        //add(sizeTF);
+        //add(sizeSlider);
 
         add(jLabel1); // CC
         add(ccTF);

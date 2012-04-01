@@ -20,10 +20,10 @@ public class Board extends JPanel {
 
     private int sqWidth;
 
-    static final Color COOP_COLOR   = Color.green;
-    static final Color DC_COLOR     = Color.blue;
-    static final Color DEFECT_COLOR = Color.red;
-    static final Color CD_COLOR     = Color.white;
+    static final Color COOP_COLOR   = new Color(  0, 255,   0);
+    static final Color DC_COLOR     = new Color(  0,   0, 255);
+    static final Color DEFECT_COLOR = new Color(255,   0,   0);
+    static final Color CD_COLOR     = new Color(255, 255, 255);
     static final Color TIT_COLOR    = new Color(200, 100, 200);
 
     Strategy[][] strats;
