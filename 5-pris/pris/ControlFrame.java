@@ -5,6 +5,7 @@
 package pris;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -83,8 +84,8 @@ public class ControlFrame extends JFrame {
         getContentPane().setLayout(null);
 
         goStopButton.setText("go");
-        goStopButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        goStopButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 goStopButtonActionPerformed(evt);
             }
         });
@@ -104,16 +105,16 @@ public class ControlFrame extends JFrame {
         getContentPane().add(delaySlider);
         delaySlider.setBounds(40, 30, 190, 29);
 
-        delayTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        delayTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 delayTFActionPerformed(evt);
             }
         });
         getContentPane().add(delayTF);
         delayTF.setBounds(260, 30, 110, 28);
 
-        sizeTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        sizeTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 sizeTFActionPerformed(evt);
             }
         });
@@ -143,8 +144,8 @@ public class ControlFrame extends JFrame {
         getContentPane().add(ccSlider);
         ccSlider.setBounds(10, 180, 390, 38);
 
-        ccTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ccTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 ccTFActionPerformed(evt);
             }
         });
@@ -163,8 +164,8 @@ public class ControlFrame extends JFrame {
         getContentPane().add(dcSlider);
         dcSlider.setBounds(20, 260, 390, 38);
 
-        dcTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        dcTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 dcTFActionPerformed(evt);
             }
         });
@@ -188,8 +189,8 @@ public class ControlFrame extends JFrame {
         jLabel4.setBounds(40, 60, 25, 16);
 
         stepButton.setText("step");
-        stepButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        stepButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 stepButtonActionPerformed(evt);
             }
         });
@@ -209,8 +210,8 @@ public class ControlFrame extends JFrame {
         getContentPane().add(ddSlider);
         ddSlider.setBounds(20, 320, 180, 38);
 
-        ddTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ddTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 ddTFActionPerformed(evt);
             }
         });
@@ -235,8 +236,8 @@ public class ControlFrame extends JFrame {
         getContentPane().add(roundsSlider);
         roundsSlider.setBounds(10, 390, 330, 52);
 
-        roundsTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        roundsTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 roundsTFActionPerformed(evt);
             }
         });
@@ -260,8 +261,8 @@ public class ControlFrame extends JFrame {
         getContentPane().add(percentSlider);
         percentSlider.setBounds(470, 30, 40, 410);
 
-        percentTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        percentTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 percentTFActionPerformed(evt);
             }
         });
@@ -283,7 +284,7 @@ public class ControlFrame extends JFrame {
         pack();
     }
 
-    private void goStopButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void goStopButtonActionPerformed(ActionEvent evt) {
         thePrisFrame.toggleRunning();
         if (thePrisFrame.running) {
             goStopButton.setText("stop");
@@ -296,12 +297,12 @@ public class ControlFrame extends JFrame {
         update();
     }
 
-    private void delayTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void delayTFActionPerformed(ActionEvent evt) {
         setSlider(delaySlider, delayTF);
         update();
     }
 
-    private void sizeTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void sizeTFActionPerformed(ActionEvent evt) {
         setSlider(sizeSlider, sizeTF);
         update();
     }
@@ -314,7 +315,7 @@ public class ControlFrame extends JFrame {
         update();
     }
 
-    private void ccTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void ccTFActionPerformed(ActionEvent evt) {
         setSlider(ccSlider, ccTF);
         update();
     }
@@ -323,12 +324,12 @@ public class ControlFrame extends JFrame {
         update();
     }
 
-    private void dcTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void dcTFActionPerformed(ActionEvent evt) {
         setSlider(dcSlider, dcTF);
         update();
     }
 
-    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void stepButtonActionPerformed(ActionEvent evt) {
         goStopButton.setText("go");
         thePrisFrame.step();
 
@@ -338,7 +339,7 @@ public class ControlFrame extends JFrame {
                 update();
     }
 
-    private void ddTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void ddTFActionPerformed(ActionEvent evt) {
         setSlider(ddSlider, ddTF);
         update();
     }
@@ -347,7 +348,7 @@ public class ControlFrame extends JFrame {
         update();
     }
 
-    private void roundsTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void roundsTFActionPerformed(ActionEvent evt) {
         setSlider(roundsSlider, roundsTF);
         update();
     }
@@ -356,7 +357,7 @@ public class ControlFrame extends JFrame {
         update();
     }
 
-    private void percentTFActionPerformed(java.awt.event.ActionEvent evt) {
+    private void percentTFActionPerformed(ActionEvent evt) {
         setSlider(percentSlider, percentTF);
         update();
     }
