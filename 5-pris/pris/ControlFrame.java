@@ -16,14 +16,9 @@ public class ControlFrame extends JFrame {
     public ControlFrame(PrisFrame f) {
         thePrisFrame = f;
         initComponents();
-        setBounds(800, 10, 500, 500);
+        setSize(500, 500);
         setVisible(true);
         update();
-    }
-
-    public void paint(Graphics g) {
-        super.paint(g);
-
     }
 
     void setSlider(JSlider aSlider, JTextField aTF) {
@@ -81,7 +76,7 @@ public class ControlFrame extends JFrame {
         jLabel9 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        setLayout(new GridLayout(0, 2));
 
         goStopButton.setText("go");
         goStopButton.addActionListener(new ActionListener() {
@@ -89,8 +84,7 @@ public class ControlFrame extends JFrame {
                 goStopButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(goStopButton);
-        goStopButton.setBounds(100, 110, 75, 29);
+        add(goStopButton);
 
         delaySlider.setMaximum(1000);
         delaySlider.setMinorTickSpacing(1);
@@ -102,24 +96,21 @@ public class ControlFrame extends JFrame {
                 delaySliderStateChanged(evt);
             }
         });
-        getContentPane().add(delaySlider);
-        delaySlider.setBounds(40, 30, 190, 29);
+        add(delaySlider);
 
         delayTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 delayTFActionPerformed(evt);
             }
         });
-        getContentPane().add(delayTF);
-        delayTF.setBounds(260, 30, 110, 28);
+        add(delayTF);
 
         sizeTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 sizeTFActionPerformed(evt);
             }
         });
-        getContentPane().add(sizeTF);
-        sizeTF.setBounds(260, 60, 120, 28);
+        add(sizeTF);
 
         sizeSlider.setMaximum(1000);
         sizeSlider.setMinimum(5);
@@ -129,11 +120,9 @@ public class ControlFrame extends JFrame {
                 sizeSliderStateChanged(evt);
             }
         });
-        getContentPane().add(sizeSlider);
-        sizeSlider.setBounds(50, 60, 190, 29);
+        add(sizeSlider);
 
         ccSlider.setMajorTickSpacing(1);
-        ccSlider.setPaintTicks(true);
         ccSlider.setSnapToTicks(true);
         ccSlider.setValue(48);
         ccSlider.addChangeListener(new ChangeListener() {
@@ -141,19 +130,16 @@ public class ControlFrame extends JFrame {
                 ccSliderStateChanged(evt);
             }
         });
-        getContentPane().add(ccSlider);
-        ccSlider.setBounds(10, 180, 390, 38);
+        add(ccSlider);
 
         ccTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 ccTFActionPerformed(evt);
             }
         });
-        getContentPane().add(ccTF);
-        ccTF.setBounds(50, 160, 110, 28);
+        add(ccTF);
 
         dcSlider.setMajorTickSpacing(1);
-        dcSlider.setPaintTicks(true);
         dcSlider.setSnapToTicks(true);
         dcSlider.setValue(77);
         dcSlider.addChangeListener(new ChangeListener() {
@@ -161,32 +147,26 @@ public class ControlFrame extends JFrame {
                 dcSliderStateChanged(evt);
             }
         });
-        getContentPane().add(dcSlider);
-        dcSlider.setBounds(20, 260, 390, 38);
+        add(dcSlider);
 
         dcTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dcTFActionPerformed(evt);
             }
         });
-        getContentPane().add(dcTF);
-        dcTF.setBounds(50, 240, 110, 28);
+        add(dcTF);
 
         jLabel1.setText("CC");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 160, 18, 16);
+        add(jLabel1);
 
         jLabel2.setText("DC");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 240, 45, 16);
+        add(jLabel2);
 
         jLabel3.setText("delay");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 20, 33, 16);
+        add(jLabel3);
 
         jLabel4.setText("size");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 60, 25, 16);
+        add(jLabel4);
 
         stepButton.setText("step");
         stepButton.addActionListener(new ActionListener() {
@@ -194,12 +174,10 @@ public class ControlFrame extends JFrame {
                 stepButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(stepButton);
-        stepButton.setBounds(200, 110, 75, 29);
+        add(stepButton);
 
         ddSlider.setMajorTickSpacing(1);
         ddSlider.setMaximum(30);
-        ddSlider.setPaintTicks(true);
         ddSlider.setSnapToTicks(true);
         ddSlider.setValue(0);
         ddSlider.addChangeListener(new ChangeListener() {
@@ -207,25 +185,20 @@ public class ControlFrame extends JFrame {
                 ddSliderStateChanged(evt);
             }
         });
-        getContentPane().add(ddSlider);
-        ddSlider.setBounds(20, 320, 180, 38);
+        add(ddSlider);
 
         ddTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 ddTFActionPerformed(evt);
             }
         });
-        getContentPane().add(ddTF);
-        ddTF.setBounds(50, 300, 110, 28);
+        add(ddTF);
 
         jLabel5.setText("DD");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(20, 300, 45, 16);
+        add(jLabel5);
 
         roundsSlider.setMajorTickSpacing(1);
         roundsSlider.setMaximum(20);
-        roundsSlider.setPaintLabels(true);
-        roundsSlider.setPaintTicks(true);
         roundsSlider.setSnapToTicks(true);
         roundsSlider.setValue(1);
         roundsSlider.addChangeListener(new ChangeListener() {
@@ -233,24 +206,19 @@ public class ControlFrame extends JFrame {
                 roundsSliderStateChanged(evt);
             }
         });
-        getContentPane().add(roundsSlider);
-        roundsSlider.setBounds(10, 390, 330, 52);
+        add(roundsSlider);
 
         roundsTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 roundsTFActionPerformed(evt);
             }
         });
-        getContentPane().add(roundsTF);
-        roundsTF.setBounds(150, 370, 110, 28);
+        add(roundsTF);
 
         jLabel6.setText("Rounds");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(70, 370, 60, 16);
+        add(jLabel6);
 
         percentSlider.setMajorTickSpacing(10);
-        percentSlider.setOrientation(JSlider.VERTICAL);
-        percentSlider.setPaintTicks(true);
         percentSlider.setSnapToTicks(true);
         percentSlider.setValue(100);
         percentSlider.addChangeListener(new ChangeListener() {
@@ -258,28 +226,23 @@ public class ControlFrame extends JFrame {
                 percentSliderStateChanged(evt);
             }
         });
-        getContentPane().add(percentSlider);
-        percentSlider.setBounds(470, 30, 40, 410);
+        add(percentSlider);
 
         percentTF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 percentTFActionPerformed(evt);
             }
         });
-        getContentPane().add(percentTF);
-        percentTF.setBounds(440, 10, 110, 28);
+        add(percentTF);
 
         jLabel7.setText("%coop");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(470, 440, 60, 16);
+        add(jLabel7);
 
         jLabel8.setText("0");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(500, 420, 8, 16);
+        add(jLabel8);
 
         jLabel9.setText("100");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(500, 30, 24, 20);
+        add(jLabel9);
 
         pack();
     }
