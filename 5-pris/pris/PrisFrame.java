@@ -66,12 +66,12 @@ public class PrisFrame extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        int w = 600;
-        int h = 600;
-        int size = 120;
-        int sqWidth = Math.min(w, h) / size;
+        int size   = 60;
+        int square =  9;
+        int w = square * size;
+        int h = square * size;
 
-        theBoard = new Board(this, w, h, sqWidth, size);
+        theBoard = new Board(this, w, h, square, size);
         add(theBoard);
 
         pack();

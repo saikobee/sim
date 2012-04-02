@@ -5,6 +5,7 @@
 package pris;
 
 import java.awt.*;
+import java.awt.image.*;
 import javax.swing.*;
 
 /**
@@ -18,13 +19,16 @@ public class Board extends JPanel {
     public static final int DEFECT = 2;
     public static final int TIT    = 3;
 
+    public static BufferedImage imgB;
+    public static BufferedImage imgW;
+
     private int sqWidth;
 
-    static final Color COOP_COLOR   = Util.colorFromHex("#4b55a3");
-    static final Color DC_COLOR     = Util.colorFromHex("#a34b81");
-    static final Color DEFECT_COLOR = Util.colorFromHex("#a3994b");
-    static final Color CD_COLOR     = Util.colorFromHex("#4ba36d");
-    static final Color TIT_COLOR    = Util.colorFromHex("#ffffff");
+    public static Color COOP_COLOR   = Util.colorFromHex("#4b55a3");
+    public static Color DEFECT_COLOR = Util.colorFromHex("#a3994b");
+    public static Color TIT_COLOR    = Util.colorFromHex("#ffffff");
+    public static Color DC_COLOR     = Util.colorFromHex("#a34b81");
+    public static Color CD_COLOR     = Util.colorFromHex("#4ba36d");
 
     Strategy[][] strats;
 
@@ -34,6 +38,10 @@ public class Board extends JPanel {
         SIZE = size;
         strats = new Strategy[SIZE][SIZE];
         init();
+
+        imgB = Util.getImage("img/b.png");
+        imgW = Util.getImage("img/w.png");
+
     }
 
     public void paint(Graphics g) {
@@ -42,12 +50,16 @@ public class Board extends JPanel {
         if (g == null)
             return;
 
-        int w = getWidth();
-        int h = getHeight();
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 g.setColor(appropColor(strats[row][col].id(), strats[row][col].getPrevID()));
-                g.fillRect(col * sqWidth, row * sqWidth, sqWidth, sqWidth);
+                BufferedImage img = strats[row][col].cooperate()? imgB: imgW;
+                final int w = sqWidth;
+                final int h = sqWidth;
+                final int x = col * w;
+                final int y = row * h;
+                g.fillRect(x, y, w, h);
+                g.drawImage(img, x, y, w, h, null);
             }
         }
     }

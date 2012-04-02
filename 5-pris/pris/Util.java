@@ -1,6 +1,9 @@
 package pris;
 
 import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
 
 public class Util {
     public static Color colorFromHex(String hex) {
@@ -18,6 +21,16 @@ public class Util {
         }
         catch (NumberFormatException e) {
             return new Color(255, 0, 255);
+        }
+    }
+
+    public static BufferedImage getImage(String filename) {
+        try {
+            return ImageIO.read(Util.class.getResource(filename));
+        }
+        catch (IOException e) {
+            System.err.println("Problem reading " + filename + ": " + e);
+            return null;
         }
     }
 }
