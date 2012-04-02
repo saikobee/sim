@@ -15,20 +15,20 @@ import javax.swing.*;
 public class Board extends JPanel {
     private int SIZE;
 
-    public static final int COOP   = 1;
-    public static final int DEFECT = 2;
-    public static final int TIT    = 3;
+    public static final int COOP   = 0;
+    public static final int DEFECT = 1;
+    public static final int TIT    = 2;
 
     public static Image imgB;
     public static Image imgW;
 
     private int sqWidth;
 
-    public static Color COOP_COLOR   = Util.colorFromHex("#4b55a3");
-    public static Color DEFECT_COLOR = Util.colorFromHex("#a3994b");
-    public static Color TIT_COLOR    = Util.colorFromHex("#ffffff");
-    public static Color DC_COLOR     = Util.colorFromHex("#a34b81");
-    public static Color CD_COLOR     = Util.colorFromHex("#4ba36d");
+    public static Color CC_COLOR = Util.colorFromHex("#4b55a3");
+    public static Color CD_COLOR = Util.colorFromHex("#4ba36d");
+    public static Color DC_COLOR = Util.colorFromHex("#a34b81");
+    public static Color DD_COLOR = Util.colorFromHex("#a3994b");
+    public static Color TIT_COLOR = Util.colorFromHex("#ffffff");
 
     Strategy[][] strats;
 
@@ -218,8 +218,8 @@ public class Board extends JPanel {
 
     Color appropColor(int id, int prevID) {
         switch (id) {
-        case COOP:   return prevID == DEFECT? DC_COLOR: COOP_COLOR;
-        case DEFECT: return prevID == COOP?   CD_COLOR: DEFECT_COLOR;
+        case COOP:   return prevID == DEFECT? DC_COLOR: CC_COLOR;
+        case DEFECT: return prevID == COOP?   CD_COLOR: DD_COLOR;
         case TIT:    return TIT_COLOR;
         default:
             System.out.println("ieeee! bad id! " + id);
