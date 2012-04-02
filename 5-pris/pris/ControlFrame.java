@@ -15,7 +15,7 @@ public class ControlFrame extends JFrame {
     public ControlFrame(PrisFrame f) {
         thePrisFrame = f;
         initComponents();
-        setSize(600, 200);
+        setSize(400, 200);
         setResizable(false);
         setVisible(true);
         update();
