@@ -19,6 +19,8 @@ public class Board extends JPanel {
     public static final int DEFECT = 1;
     public static final int TIT    = 2;
 
+    public static int MAX_NEIGHBOR_DIST = 1;
+
     public static Image imgB;
     public static Image imgW;
 
@@ -166,8 +168,8 @@ public class Board extends JPanel {
 
     void interact(int i, int j) {
         // for each nbr {play a round and record scores}
-        for (int row = i - 1; row <= i + 1; row++) {
-            for (int col = j - 1; col <= j + 1; col++) {
+        for (int row = i - MAX_NEIGHBOR_DIST; row <= i + MAX_NEIGHBOR_DIST; row++) {
+            for (int col = j - MAX_NEIGHBOR_DIST; col <= j + MAX_NEIGHBOR_DIST; col++) {
                 if ((col != j || row != i)) {// if not identity (i.e. don't play with yourself!
                     PrisonersDilemma.playARound(strats[i][j], strats[torus(row)][torus(col)]);
                 }
@@ -179,8 +181,8 @@ public class Board extends JPanel {
         // for each nbr {chose best}
         Strategy bestStrat = strats[i][j];
         int max = strats[i][j].getScore();
-        for (int row = i - 1; row <= i + 1; row++) {
-            for (int col = j - 1; col <= j + 1; col++) {
+        for (int row = i - MAX_NEIGHBOR_DIST; row <= i + MAX_NEIGHBOR_DIST; row++) {
+            for (int col = j - MAX_NEIGHBOR_DIST; col <= j + MAX_NEIGHBOR_DIST; col++) {
                 if ((col != j || row != i)) {// if not identity (i.e. don't play with yourself!
                     int score = strats[torus(row)][torus(col)].getScore();
                     if (score > max) {

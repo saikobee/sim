@@ -37,6 +37,7 @@ public class ControlFrame extends JFrame {
         Params.ddPayoff = ddSlider.getValue();
         Params.rounds = roundsSlider.getValue();
         Params.percentCoop = percentSlider.getValue();
+        Board.MAX_NEIGHBOR_DIST = mndSlider.getValue();
 
         setTF(delaySlider, delayTF);
         setTF(sizeSlider, sizeTF);
@@ -45,6 +46,7 @@ public class ControlFrame extends JFrame {
         setTF(ddSlider, ddTF);
         setTF(roundsSlider, roundsTF);
         setTF(percentSlider, percentTF);
+        setTF(mndSlider, mndTF);
     }
 
     private void initComponents() {
@@ -75,6 +77,24 @@ public class ControlFrame extends JFrame {
         jLabel7 = new JLabel();
         jLabel8 = new JLabel();
         jLabel9 = new JLabel();
+
+        mndTF     = new JTextField();
+        mndLabel  = new JLabel("Max neighbor dist.");
+        mndSlider = new JSlider();
+
+        mndSlider.setMaximum(5);
+        mndSlider.setMinimum(1);
+        mndTF.setText("1");
+        mndSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) {
+                mndSliderStateChanged(evt);
+            }
+        });
+        mndTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                mndTFActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new GridLayout(0, 3));
@@ -250,6 +270,10 @@ public class ControlFrame extends JFrame {
         add(percentTF);
         add(percentSlider);
 
+        add(mndLabel);
+        add(mndTF);
+        add(mndSlider);
+
         add(stepButton);
         add(goStopButton);
         add(restartButton);
@@ -284,6 +308,15 @@ public class ControlFrame extends JFrame {
 
     private void sizeTFActionPerformed(ActionEvent evt) {
         setSlider(sizeSlider, sizeTF);
+        update();
+    }
+
+    private void mndTFActionPerformed(ActionEvent evt) {
+        setSlider(mndSlider, mndTF);
+        update();
+    }
+
+    private void mndSliderStateChanged(ChangeEvent evt) {
         update();
     }
 
@@ -348,6 +381,7 @@ public class ControlFrame extends JFrame {
     private JSlider roundsSlider;
     private JSlider sizeSlider;
     private JSlider percentSlider;
+    private JSlider mndSlider;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -357,6 +391,7 @@ public class ControlFrame extends JFrame {
     private JLabel jLabel7;
     private JLabel jLabel8;
     private JLabel jLabel9;
+    private JLabel mndLabel;
     private JTextField ccTF;
     private JTextField dcTF;
     private JTextField ddTF;
@@ -367,4 +402,5 @@ public class ControlFrame extends JFrame {
     private JTextField percentTF;
     private JTextField roundsTF;
     private JTextField sizeTF;
+    private JTextField mndTF;
 }
