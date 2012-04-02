@@ -19,8 +19,8 @@ public class Board extends JPanel {
     public static final int DEFECT = 2;
     public static final int TIT    = 3;
 
-    public static BufferedImage imgB;
-    public static BufferedImage imgW;
+    public static Image imgB;
+    public static Image imgW;
 
     private int sqWidth;
 
@@ -53,7 +53,7 @@ public class Board extends JPanel {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 g.setColor(appropColor(strats[row][col].id(), strats[row][col].getPrevID()));
-                BufferedImage img = strats[row][col].cooperate()? imgB: imgW;
+                Image img = strats[row][col].cooperate()? imgB: imgW;
                 final int w = sqWidth;
                 final int h = sqWidth;
                 final int x = col * w;

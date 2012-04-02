@@ -24,13 +24,18 @@ public class Util {
         }
     }
 
-    public static BufferedImage getImage(String filename) {
+    public static Image getImage(String filename) {
         try {
-            return ImageIO.read(Util.class.getResource(filename));
+            return ImageIO.read(Util.class.getResource("/" + filename));
         }
         catch (IOException e) {
-            System.err.println("Problem reading " + filename + ": " + e);
-            return null;
+            try {
+                return ImageIO.read(Util.class.getResource(filename));
+            }
+            catch (IOException e2) {
+                System.err.println("Problem reading " + filename + ": " + e);
+                return null;
+            }
         }
     }
 }
