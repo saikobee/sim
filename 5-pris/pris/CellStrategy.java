@@ -10,19 +10,22 @@ public abstract class CellStrategy implements Strategy {
     int score;
     protected Strategy nextStrategy;
     int prevID;
+    int prePre;
 
     public CellStrategy() {}
-    public CellStrategy(int prevID) {
+    public CellStrategy(int prevID, int prePre) {
         this.prevID = prevID;
+        this.prePre = prePre;
     }
     public int getPrevID() {return prevID;}
+    public int getPrePre() {return prePre;}
 
     @Override
     public abstract boolean cooperate();
     public void setPreviousOpponentMove(boolean cooperate) {
         previousOpponentMove = cooperate;
     }
-    
+
     public abstract int id();
     public void setScore(int score) {this.score = score;}
     public int getScore() {return score;}
@@ -40,5 +43,4 @@ public abstract class CellStrategy implements Strategy {
     public void setNextStrategy(Strategy nextStrategy) {
         this.nextStrategy = nextStrategy;
     }
-
 }

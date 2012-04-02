@@ -9,17 +9,16 @@ package pris;
  * @author levenick
  */
 public class Defect extends CellStrategy {
-    
     public Defect() {}
 
-    public Defect(int prevID) {
-        super(prevID);
+    public Defect(int p, int pp) {
+        super(p, pp);
     }
 
     public boolean cooperate() {
         return false;
     }
-    
+
     public int id() {
         return Board.DEFECT;
     }

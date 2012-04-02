@@ -9,17 +9,16 @@ package pris;
  * @author levenick
  */
 public class TitForTat extends CellStrategy  {
-    
     public TitForTat() {}
-    
-    public TitForTat(int prevID) {
-        super(prevID);
+
+    public TitForTat(int p, int pp) {
+        super(p, pp);
     }
 
     public boolean cooperate() {
         return previousOpponentMove;
     }
-    
+
     public int id() {
         return Board.TIT;
     }

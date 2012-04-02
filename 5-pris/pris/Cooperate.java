@@ -9,17 +9,16 @@ package pris;
  * @author levenick
  */
 public class Cooperate extends CellStrategy {
-    
     public Cooperate() {}
 
-    public Cooperate(int prevID) {
-        super(prevID);
+    public Cooperate(int p, int pp) {
+        super(p, pp);
     }
 
     public boolean cooperate() {
         return true;
     }
-    
+
     public int id() {
         return Board.COOP;
     }

@@ -25,4 +25,5 @@ public interface Strategy {
     public void setNextStrategy(Strategy nextStrategy);
 
     public int getPrevID();
+    public int getPrePre();
 }
