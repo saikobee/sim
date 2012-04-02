@@ -84,6 +84,7 @@ public class ControlFrame extends JFrame {
 
         mndSlider.setMaximum(5);
         mndSlider.setMinimum(1);
+        mndSlider.setValue(1);
         mndTF.setText("1");
         mndSlider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent evt) {
