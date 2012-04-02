@@ -29,10 +29,10 @@ public class Board extends JPanel {
     public static Color CDC_COLOR = Util.colorFromHex("#a34b81");
     public static Color CDD_COLOR = Util.colorFromHex("#a3994b");
 
-    public static Color DCC_COLOR = Util.colorFromHex("#ff0000");
-    public static Color DCD_COLOR = Util.colorFromHex("#00ff00");
-    public static Color DDC_COLOR = Util.colorFromHex("#0000ff");
-    public static Color DDD_COLOR = Util.colorFromHex("#ff00ff");
+    public static Color DCC_COLOR = Util.colorFromHex("#4d548a");
+    public static Color DCD_COLOR = Util.colorFromHex("#8a4d72");
+    public static Color DDC_COLOR = Util.colorFromHex("#8a834d");
+    public static Color DDD_COLOR = Util.colorFromHex("#4d8a64");
 
     public static Color TIT_COLOR = Util.colorFromHex("#ffffff");
 
